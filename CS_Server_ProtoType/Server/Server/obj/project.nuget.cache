@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "dgSpecHash": "pX2UhZ++leRl3zo7xItHlT6U4fQJKAB/Ips8K0H7mqITDtvOtw47LbX7/SUq5hnZFfR3UQQCJrR6R6fwe799Ww==",
+  "success": true,
+  "projectFilePath": "D:\\CS\\MMO_Game\\Server\\Server\\Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gustj\\.nuget\\packages\\google.protobuf\\3.12.3\\google.protobuf.3.12.3.nupkg.sha512",
+    "C:\\Users\\gustj\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\gustj\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "'Google.Protobuf' 3.12.3 패키지에 알려진 높은 심각도 취약성인 https://github.com/advisories/GHSA-77rm-9x9h-xj3g이(가) 있습니다.",
+      "libraryId": "Google.Protobuf",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "'Newtonsoft.Json' 12.0.3 패키지에 알려진 높은 심각도 취약성인 https://github.com/advisories/GHSA-5crp-9r3c-p9vr이(가) 있습니다.",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}
