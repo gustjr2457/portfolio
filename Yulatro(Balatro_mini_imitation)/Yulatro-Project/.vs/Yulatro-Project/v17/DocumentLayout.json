@@ -1,0 +1,111 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Project\\Yulatro\\Yulatro-Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|d:\\project\\yulatro\\yulatro-project\\assets\\scripts\\horizontalcardholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\horizontalcardholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|d:\\project\\yulatro\\yulatro-project\\assets\\resultmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|solutionrelative:assets\\resultmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|D:\\Project\\Yulatro\\Yulatro-Project\\assets\\scripts\\cardmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardmovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|D:\\Project\\Yulatro\\Yulatro-Project\\assets\\scripts\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|d:\\project\\yulatro\\yulatro-project\\assets\\scripts\\cardvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{357873F7-5ACD-5F4F-2393-4C80891206FD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 232,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CardVisual.cs",
+              "DocumentMoniker": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardVisual.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardVisual.cs",
+              "ToolTip": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardVisual.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardVisual.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T14:33:00.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CardMovement.cs",
+              "DocumentMoniker": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardMovement.cs",
+              "ToolTip": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardMovement.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAQwDYAAABcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-24T00:30:10.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "resultManager.cs",
+              "DocumentMoniker": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\resultManager.cs",
+              "RelativeDocumentMoniker": "Assets\\resultManager.cs",
+              "ToolTip": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\resultManager.cs",
+              "RelativeToolTip": "Assets\\resultManager.cs",
+              "ViewState": "AQIAADcAAAAAAAAAAAAAAFIAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-23T22:01:12.282Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 512,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CardController.cs",
+              "DocumentMoniker": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardController.cs",
+              "ToolTip": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\CardController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardController.cs",
+              "ViewState": "AQIAAPwAAAAAAAAAAAAAAAkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T17:52:05.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HorizontalCardHolder.cs",
+              "DocumentMoniker": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\HorizontalCardHolder.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HorizontalCardHolder.cs",
+              "ToolTip": "D:\\Project\\Yulatro\\Yulatro-Project\\Assets\\Scripts\\HorizontalCardHolder.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HorizontalCardHolder.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAAAGwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T17:52:17.273Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
