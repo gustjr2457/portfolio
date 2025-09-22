@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d750e272b54c7989c45fe8d2b4d601, type: 3}
+  m_Name: DefaultCardResources
+  m_EditorClassIdentifier: 
+  <PlayingCardSpriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: 9b041a8a37b051840ad952a7895b48cc, type: 3}
+  <JokerCardSpriteLibrary>k__BackingField: {fileID: 7108339969198208228, guid: d4a603b8cf16cf24783239640fce3f6e, type: 3}
+  <TarotCardSpriteLibrary>k__BackingField: {fileID: 0}
+  <PlanetCardSpriteLibrary>k__BackingField: {fileID: 0}
+  <GhostCardSpriteLibrary>k__BackingField: {fileID: 0}
