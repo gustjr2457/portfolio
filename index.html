@@ -1,572 +1,509 @@
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>서현석 | Game Developer Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>서현석 — Unity · Cocos Creator 클라이언트 개발자</title>
+<meta name="description" content="유한대학교 게임콘텐츠전공 서현석의 포트폴리오. (주)스윙크에서 메가스터디·키즈엠 교육 콘텐츠 클라이언트 개발, 드로잉 시스템 레이어 생성 200개→40개 최적화." />
+<meta name="author" content="서현석" />
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="서현석 — Unity · Cocos Creator 클라이언트 개발자" />
+<meta property="og:description" content="(주)스윙크에서 교육 콘텐츠 클라이언트 개발. 드로잉 시스템 레이어 생성을 200개에서 40개로 줄인 최적화 사례." />
+<meta property="og:url" content="https://gustjr2457.github.io/portfolio/" />
+<meta property="og:locale" content="ko_KR" />
+<link rel="canonical" href="https://gustjr2457.github.io/portfolio/" />
+<meta name="theme-color" content="#faf8f4" />
 
-<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+  /* 색은 3개만 쓴다. 종이색 · 먹색 · 남색.
+     남색을 고른 이유: 이력서는 흑백으로 출력될 일이 많은데,
+     남색은 그레이스케일로 떨어져도 먹색과 구분되면서 톤이 무너지지 않는다. */
+  --paper:#faf8f4;
+  --paper-2:#f1ede4;
+  --ink:#1c1b19;
+  --ink-2:#4a4741;
+  --muted:#7b766c;
+  --navy:#26415e;
+  --navy-deep:#1b3049;
+  --rule:#ded8cc;
+
+  --serif:"Nanum Myeongjo","Batang","Times New Roman",serif;
+  --sans:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"D2Coding",Consolas,"Courier New",ui-monospace,monospace;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
-    font-family:'Pretendard',sans-serif;
-    background:#0f172a;
-    color:#f8fafc;
-    line-height:1.7;
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16.5px;
+  line-height:1.8;
+  letter-spacing:-.004em;
+  word-break:keep-all;
+}
+.page{max-width:720px;margin:0 auto;padding:0 24px 96px}
+
+a{color:var(--navy-deep);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--navy)}
+:focus-visible{outline:2px solid var(--navy);outline-offset:3px;border-radius:2px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:9}
+.skip:focus{left:0}
+
+/* ── 머리말 ── */
+header.doc{padding:68px 0 30px;border-bottom:2px solid var(--ink)}
+.name{
+  font-family:var(--serif);font-weight:800;
+  font-size:clamp(2.3rem,7vw,3.2rem);
+  line-height:1.15;letter-spacing:-.02em;margin:0 0 4px;
+}
+.name .en{
+  display:block;font-family:var(--sans);font-weight:500;
+  font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:14px;
+}
+.tagline{
+  font-family:var(--serif);font-size:1.14rem;line-height:1.7;
+  margin:18px 0 0;padding-left:15px;border-left:2px solid var(--navy);color:#33302b;
+}
+.tagline .sub{display:block;font-family:var(--sans);font-size:.95rem;color:var(--ink-2);margin-top:6px}
+
+.contact{margin-top:26px;font-size:.9rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 0}
+.contact span:not(:last-child)::after{content:"·";margin:0 12px;color:var(--rule)}
+
+nav.toc{padding:16px 0 0;font-size:.87rem;display:flex;flex-wrap:wrap;gap:6px 0}
+nav.toc a{color:var(--muted);text-decoration:none}
+nav.toc a:hover{color:var(--navy);text-decoration:underline}
+nav.toc a:not(:last-child)::after{content:"/";margin:0 11px;color:var(--rule)}
+
+/* ── 섹션 ── */
+/* 여백에 강약: 큰 전환은 72px, 내부 항목은 붙인다 */
+section{margin-top:72px}
+.sec-head{display:flex;align-items:baseline;gap:13px;margin-bottom:6px}
+.sec-no{font-family:var(--serif);font-weight:700;font-size:1rem;color:var(--navy);flex:none}
+h2{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(1.35rem,3.4vw,1.65rem);
+  line-height:1.35;margin:0;letter-spacing:-.015em;
+}
+.sec-note{font-size:.88rem;color:var(--muted);margin:0 0 26px;padding-left:29px}
+.indent{padding-left:29px}
+
+/* ── 이력 항목 (경력·학력): 좌측 기간 / 우측 내용 2단 ── */
+.entry{display:grid;grid-template-columns:132px 1fr;gap:0 24px;padding:24px 0;border-top:1px solid var(--rule)}
+.entry:first-of-type{border-top:2px solid var(--ink)}
+.entry .when{font-size:.84rem;color:var(--muted);line-height:1.6;font-variant-numeric:tabular-nums;padding-top:5px}
+.entry .when b{display:block;color:var(--navy);font-weight:700;font-size:.8rem;letter-spacing:.02em}
+.entry h3{font-family:var(--sans);font-weight:700;font-size:1.08rem;margin:0 0 2px;letter-spacing:-.01em}
+.entry .role{font-size:.9rem;color:var(--navy-deep);margin:0 0 10px;font-weight:500}
+.entry p{margin:0 0 8px;color:var(--ink-2);font-size:.97rem}
+.entry ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
+.entry li{margin-bottom:5px}
+.entry li::marker{color:var(--rule)}
+.entry li b{color:var(--ink);font-weight:600}
+.entry h4{font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.05em;color:var(--muted);margin:16px 0 7px}
+
+/* ── 대표 사례: 페이지에서 가장 무거운 블록. 다른 섹션과 리듬을 다르게 준다 ── */
+.case{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:28px 0}
+.case h3{font-family:var(--serif);font-weight:700;font-size:1.38rem;margin:0 0 4px;letter-spacing:-.01em}
+.case .where{font-size:.87rem;color:var(--muted);margin:0 0 22px}
+.case h4{
+  font-family:var(--sans);font-size:.8rem;font-weight:700;letter-spacing:.09em;
+  color:var(--navy);margin:22px 0 8px;text-transform:uppercase;
+}
+.case h4:first-of-type{margin-top:0}
+.case p{margin:0 0 10px;color:var(--ink-2);font-size:.97rem}
+.case ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
+.case li{margin-bottom:5px}
+.case li::marker{color:var(--rule)}
+
+pre.code{
+  margin:12px 0 4px;padding:14px 16px;
+  background:var(--paper-2);border-left:3px solid var(--navy);
+  overflow-x:auto;font-family:var(--mono);
+  font-size:.85rem;line-height:1.7;color:#2b2926;
+}
+pre.code + .caption{font-size:.82rem;color:var(--muted);margin:0}
+
+.results{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule);margin-top:10px}
+.results div{padding:16px 18px 14px;border-right:1px solid var(--rule)}
+.results div:last-child{border-right:0}
+.results b{
+  display:block;font-family:var(--serif);font-weight:700;
+  font-size:1.5rem;line-height:1.25;color:var(--navy);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+}
+.results span{display:block;font-size:.85rem;color:var(--muted);margin-top:4px}
+
+/* ── 프로젝트: 이력 항목과 또 다른 리듬 ── */
+.proj{padding:30px 0;border-top:1px solid var(--rule)}
+.proj:first-of-type{border-top:2px solid var(--ink)}
+.proj-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.proj h3{font-family:var(--serif);font-weight:700;font-size:1.32rem;margin:0;letter-spacing:-.01em}
+.proj .period{font-size:.83rem;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
+.proj .kind{
+  display:inline-block;margin:9px 0 14px;font-size:.76rem;letter-spacing:.06em;
+  color:var(--navy);border:1px solid var(--navy);border-radius:3px;padding:1px 7px;
+}
+.proj dl{margin:0 0 16px;display:grid;grid-template-columns:76px 1fr;gap:6px 16px;font-size:.93rem}
+.proj dt{color:var(--muted);font-size:.84rem;padding-top:2px}
+.proj dd{margin:0;color:var(--ink-2)}
+.proj h4{font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.05em;color:var(--muted);margin:0 0 7px}
+.proj ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
+.proj li{margin-bottom:6px}
+.proj li::marker{color:var(--rule)}
+.proj li b{color:var(--ink);font-weight:600}
+.proj .gain{color:var(--muted);font-size:.92rem}
+
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack span{
+  font-size:.8rem;color:var(--ink-2);border:1px solid var(--rule);
+  border-radius:3px;padding:1px 8px;background:var(--paper-2);
 }
 
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:auto;
+/* ── 표 ── */
+.table-wrap{overflow-x:auto;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:.94rem;min-width:420px}
+th,td{text-align:left;padding:13px 2px;vertical-align:top;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:0}
+th{font-weight:700;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding-bottom:9px}
+td:first-child{width:36%;font-weight:600;color:var(--ink);padding-right:16px}
+td:last-child{color:var(--ink-2)}
+
+/* ── 맺음 ── */
+.closing{
+  margin-top:72px;padding:22px 24px;background:var(--paper-2);
+  border-left:3px solid var(--navy);
+  font-family:var(--serif);font-size:1.05rem;line-height:1.75;color:#33302b;
+}
+.closing p{margin:0}
+.closing p + p{margin-top:12px}
+
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted);line-height:1.9}
+footer a{color:var(--muted)}
+footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
+
+/* ── 좁은 화면 ── */
+@media (max-width:620px){
+  body{font-size:16px}
+  .page{padding:0 20px 72px}
+  header.doc{padding-top:44px}
+  section{margin-top:56px}
+  .entry{grid-template-columns:1fr;gap:0}
+  .entry .when{padding:0 0 8px}
+  .entry .when b{display:inline;margin-right:8px}
+  .sec-note,.indent{padding-left:0}
+  .proj dl{grid-template-columns:66px 1fr}
+  .results{grid-template-columns:1fr}
+  .results div{border-right:0;border-bottom:1px solid var(--rule)}
+  .results div:last-child{border-bottom:0}
+  .closing{padding:20px}
 }
 
-section{
-    padding:100px 0;
-}
-
-h1,h2,h3{
-    margin-bottom:20px;
-}
-
-.section-title{
-    font-size:2.5rem;
-    margin-bottom:50px;
-    color:#38bdf8;
-}
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    background:linear-gradient(
-        135deg,
-        #0f172a,
-        #1e293b,
-        #0f172a
-    );
-}
-
-.hero h1{
-    font-size:4rem;
-    font-weight:800;
-}
-
-.hero span{
-    color:#38bdf8;
-}
-
-.hero p{
-    margin-top:20px;
-    max-width:700px;
-    font-size:1.2rem;
-    color:#cbd5e1;
-}
-
-.btn-group{
-    margin-top:40px;
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    padding:14px 28px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:600;
-    transition:.3s;
-}
-
-.btn-primary{
-    background:#38bdf8;
-    color:#0f172a;
-}
-
-.btn-primary:hover{
-    transform:translateY(-3px);
-}
-
-.btn-outline{
-    border:1px solid #38bdf8;
-    color:#38bdf8;
-}
-
-.btn-outline:hover{
-    background:#38bdf8;
-    color:#0f172a;
-}
-
-.card{
-    background:#1e293b;
-    padding:30px;
-    border-radius:20px;
-    margin-bottom:25px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:25px;
-}
-
-.skill{
-    margin-bottom:20px;
-}
-
-.skill-header{
-    display:flex;
-    justify-content:space-between;
-}
-
-.progress{
-    width:100%;
-    height:12px;
-    background:#334155;
-    border-radius:20px;
-    overflow:hidden;
-    margin-top:8px;
-}
-
-.progress-bar{
-    height:100%;
-    background:linear-gradient(90deg,#38bdf8,#0ea5e9);
-}
-
-.timeline{
-    border-left:3px solid #38bdf8;
-    padding-left:25px;
-}
-
-.timeline-item{
-    margin-bottom:40px;
-}
-
-.project-table{
-    width:100%;
-    border-collapse:collapse;
-    margin:25px 0;
-}
-
-.project-table td{
-    border:1px solid #334155;
-    padding:12px;
-}
-
-.project-table tr:nth-child(odd){
-    background:#1e293b;
-}
-
-.project-table tr:nth-child(even){
-    background:#111827;
-}
-
-.highlight{
-    color:#38bdf8;
-    font-weight:700;
-}
-
-ul{
-    margin-left:20px;
-}
-
-footer{
-    text-align:center;
-    padding:40px;
-    background:#020617;
-    color:#94a3b8;
-}
-
-@media(max-width:768px){
-
-.hero h1{
-    font-size:2.5rem;
-}
-
-.section-title{
-    font-size:2rem;
-}
-
+/* ── 인쇄 ── */
+/* 이력서는 결국 종이로 나가는 일이 있어서 인쇄 스타일을 따로 잡았다 */
+@media print{
+  body{background:#fff;font-size:10.5pt;line-height:1.6}
+  .page{max-width:none;padding:0}
+  nav.toc,.skip{display:none}
+  header.doc{padding-top:0}
+  section{margin-top:26px;page-break-inside:avoid}
+  .proj,.entry,.case{page-break-inside:avoid}
+  .closing,pre.code{background:none;padding-left:14px}
+  a{text-decoration:none;color:var(--ink)}
 }
 </style>
 </head>
-
 <body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
 
-<!-- HERO -->
-<section class="hero">
-<div class="container">
+<div class="page">
 
-<h1>
-새로운 변화를 두려워하지 않는<br>
-<span>개발자 서현석</span> 입니다.
-</h1>
+<header class="doc">
+  <h1 class="name">
+    <span class="en">Seo Hyunseok · Client Developer</span>
+    서현석
+  </h1>
+  <p class="tagline">
+    지속적인 성장을 추구하는 개발자입니다.
+    <span class="sub">Unity와 Cocos Creator로 게임과 교육 콘텐츠의 클라이언트를 만듭니다.</span>
+  </p>
+  <p class="contact">
+    <span>shs103401@naver.com</span>
+    <span>유한대학교 게임콘텐츠전공</span>
+    <span>2026.12 졸업 예정</span>
+  </p>
+  <nav class="toc" aria-label="목차">
+    <a href="#career">경력</a>
+    <a href="#case">대표 사례</a>
+    <a href="#projects">프로젝트</a>
+    <a href="#skills">기술</a>
+    <a href="#education">학력과 활동</a>
+    <a href="#contact">연락</a>
+  </nav>
+</header>
 
-<p>
-게임 개발과 최적화에 관심이 많으며,
-사용자 경험과 성능을 함께 고민하는 개발자입니다.
-실무 경험을 바탕으로 유지보수 가능한 구조와
-효율적인 시스템 설계를 지향합니다.
-</p>
+<main id="main">
 
-<div class="btn-group">
-<a href="#about" class="btn btn-primary">소개 보기</a>
-<a href="#project" class="btn btn-outline">프로젝트 보기</a>
-</div>
+<section id="career">
+  <div class="sec-head"><span class="sec-no">01</span><h2>경력</h2></div>
+  <p class="sec-note">최근 순.</p>
 
-</div>
+  <article class="entry">
+    <div class="when"><b>2025.01 — 2026.02</b>1년 2개월</div>
+    <div>
+      <h3>(주)스윙크</h3>
+      <p class="role">클라이언트 개발자 · 교육용 게임 소프트웨어</p>
+      <ul>
+        <li>메가스터디, 키즈엠 등 <b>대형 교육 업체</b>의 클라이언트를 개발했습니다.</li>
+        <li>Cocos Creator · TypeScript 기반으로 <b>세부 콘텐츠를 다수 제작</b>했습니다.</li>
+        <li><b>드로잉 시스템</b> 설계와 개발, 성능 최적화를 맡았습니다.
+            → <a href="#case">대표 사례</a></li>
+        <li>기능 유지보수와 버그 수정, 코드 리뷰를 포함한 협업을 함께 했습니다.</li>
+      </ul>
+      <h4>이 기간에 얻은 것</h4>
+      <ul class="gain">
+        <li>TypeScript로 실무 코드를 1년 넘게 쓰면서 붙은 언어 감각</li>
+        <li>캔버스 시스템 최적화 경험</li>
+        <li>사람이 여럿 붙는 대형 저장소에서의 Git 운영 경험</li>
+      </ul>
+    </div>
+  </article>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-<div class="container">
+<section id="case">
+  <div class="sec-head"><span class="sec-no">02</span><h2>대표 사례</h2></div>
+  <p class="sec-note">가장 손이 많이 갔고, 숫자로 확인된 작업입니다.</p>
 
-<h2 class="section-title">About Me</h2>
+  <article class="case">
+    <h3>드로잉 시스템 레이어 관리 최적화</h3>
+    <p class="where">교육용 드로잉 게임 · (주)스윙크 · Cocos Creator, TypeScript · 설계 및 최적화 담당</p>
 
-<div class="card">
-<p>
-안녕하세요. 게임 개발자 서현석입니다.
-</p>
+    <h4>문제</h4>
+    <p>
+      기존 드로잉 시스템은 사용자가 입력을 재개하거나 도구를 바꿀 때마다 새 레이어를 만들었습니다.
+      그리는 동안 레이어가 계속 쌓이면서 메모리와 렌더링 비용이 같이 올라갔고,
+      저사양 태블릿에서 특히 느려졌습니다.
+    </p>
 
-<br>
-
-<p>
-유한대학교 게임콘텐츠제작 전공 졸업 예정자로,
-(주)스윙크에서 1년간 교육용 게임 개발 업무를 수행하며
-실무 경험을 쌓았습니다.
-</p>
-
-<br>
-
-<p>
-새로운 기술을 배우는 것을 즐기며,
-문제를 발견하면 원인을 분석하고 개선하는 과정에서
-큰 보람을 느낍니다.
-</p>
-
-<br>
-
-<p>
-특히 게임 시스템 설계와 성능 최적화에 관심이 많으며,
-유지보수가 쉬운 구조와 안정적인 서비스를 만들기 위해 노력하고 있습니다.
-</p>
-
-</div>
-
-</div>
-</section>
-
-<!-- SKILLS -->
-<section>
-<div class="container">
-
-<h2 class="section-title">Skills</h2>
-
-<div class="card">
-
-<div class="skill">
-<div class="skill-header">
-<span>Cocos Creator</span>
-<span>90%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:90%"></div>
-</div>
-</div>
-
-<div class="skill">
-<div class="skill-header">
-<span>TypeScript</span>
-<span>85%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:85%"></div>
-</div>
-</div>
-
-<div class="skill">
-<div class="skill-header">
-<span>Unity</span>
-<span>80%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:80%"></div>
-</div>
-</div>
-
-<div class="skill">
-<div class="skill-header">
-<span>C#</span>
-<span>80%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:80%"></div>
-</div>
-</div>
-
-<div class="skill">
-<div class="skill-header">
-<span>C++</span>
-<span>70%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:70%"></div>
-</div>
-</div>
-
-<div class="skill">
-<div class="skill-header">
-<span>MySQL</span>
-<span>60%</span>
-</div>
-<div class="progress">
-<div class="progress-bar" style="width:60%"></div>
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- EDUCATION -->
-<section>
-<div class="container">
-
-<h2 class="section-title">Education</h2>
-
-<div class="timeline">
-
-<div class="timeline-item">
-<h3>유한대학교</h3>
-<p>게임콘텐츠제작 전공 (졸업 예정)</p>
-
-<br>
-
-<ul>
-<li>창업동아리 가온 활동</li>
-<li>DirectX12 기반 엔진 개발 경험</li>
-<li>다양한 게임 프로젝트 참여</li>
-<li>학과 집행부 재무 담당</li>
-</ul>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- CAREER -->
-<section>
-<div class="container">
-
-<h2 class="section-title">Career</h2>
-
-<div class="card">
-
-<h3>(주)스윙크</h3>
-
-<p>
-교육용 게임 소프트웨어 개발
-</p>
-
-<br>
-
-<ul>
-<li>Cocos Creator 기반 게임 개발</li>
-<li>드로잉 시스템 개발</li>
-<li>기능 유지보수 및 버그 수정</li>
-<li>성능 최적화</li>
-<li>협업 및 코드 리뷰 경험</li>
-</ul>
-
-</div>
-
-</div>
-</section>
-
-<!-- LICENSE -->
-<section>
-<div class="container">
-
-<h2 class="section-title">Certificates</h2>
-
-<div class="card">
-<h3>SQLD</h3>
-<p>SQL 개발자</p>
-<p>취득일 : 2024.12</p>
-</div>
-
-</div>
-</section>
-
-<!-- PROJECT -->
-<section id="project">
-<div class="container">
-
-<h2 class="section-title">Featured Project</h2>
-
-<div class="card">
-
-<h3>드로잉 시스템 레이어 관리 최적화</h3>
-
-<table class="project-table">
-<tr>
-<td>프로젝트</td>
-<td>교육용 드로잉 게임</td>
-</tr>
-<tr>
-<td>담당 역할</td>
-<td>드로잉 시스템 설계 및 최적화</td>
-</tr>
-<tr>
-<td>개발 환경</td>
-<td>Cocos Creator, TypeScript</td>
-</tr>
-<tr>
-<td>소속</td>
-<td>(주)스윙크</td>
-</tr>
-</table>
-
-<h3>문제 상황</h3>
-
-<p>
-기존 드로잉 시스템은 사용자가 입력을 재개하거나
-도구를 변경할 때마다 새로운 레이어를 생성했습니다.
-</p>
-
-<br>
-
-<ul>
-<li>메모리 사용량 증가</li>
-<li>렌더링 비용 증가</li>
-<li>저사양 기기 성능 저하</li>
-</ul>
-
-<br>
-
-<h3>해결 방법</h3>
-
-<p>
-입력 이벤트와 도구 변경 이벤트를 분리하고,
-실제 드로잉 작업이 시작되는 시점에만
-새로운 레이어를 생성하도록 개선했습니다.
-</p>
-
-<br>
-
-<pre>
-if (toolChanged && isDrawingStarted) {
+    <h4>해결</h4>
+    <p>
+      입력 이벤트와 도구 변경 이벤트를 분리했습니다.
+      도구를 바꿨다는 사실만으로는 레이어를 만들지 않고,
+      <b>실제로 획이 시작되는 시점</b>에만 만들도록 조건을 옮겼습니다.
+    </p>
+<pre class="code">if (toolChanged &amp;&amp; isDrawingStarted) {
     createNewLayer();
     toolChanged = false;
-}
-</pre>
+}</pre>
+    <p class="caption">도구 변경 플래그를 그리기 시작 시점에 소비하도록 바꾼 부분.</p>
 
-<br>
+    <h4>결과</h4>
+    <div class="results">
+      <div><b>200개 → 40개</b><span>평균 생성 레이어 수</span></div>
+      <div><b>약 80% 감소</b><span>레이어 생성 호출 횟수</span></div>
+    </div>
+    <p style="margin-top:14px">
+      메모리와 렌더링 비용이 함께 줄었고, 문제가 됐던 저사양 태블릿에서 안정적으로 돌아갔습니다.
+    </p>
 
-<h3>성과</h3>
-
-<ul>
-<li><span class="highlight">레이어 생성 횟수 약 80% 감소</span></li>
-<li>평균 생성 레이어 수 200개 → 40개</li>
-<li>메모리 사용량 감소</li>
-<li>렌더링 비용 감소</li>
-<li>저사양 태블릿 환경 안정성 향상</li>
-</ul>
-
-<br>
-
-<h3>기술적으로 배운 점</h3>
-
-<p>
-기능 구현뿐만 아니라 객체 생성 비용과 렌더링 비용을
-고려한 설계가 중요하다는 점을 경험했습니다.
-또한 상태 기반 설계를 통해 유지보수성과 성능을 동시에
-향상시킬 수 있음을 배웠습니다.
-</p>
-
-</div>
-
-</div>
+    <h4>남은 생각</h4>
+    <p style="margin-bottom:0">
+      기능이 도는 것과 값싸게 도는 것은 다른 문제였습니다.
+      객체를 언제 만들지를 <b>상태로 판단하게</b> 바꿨더니 성능과 유지보수가 같이 좋아졌는데,
+      이후 작업에서도 같은 방식으로 먼저 의심해 보게 됐습니다.
+    </p>
+  </article>
 </section>
 
-<!-- STRENGTH -->
-<section>
-<div class="container">
+<section id="projects">
+  <div class="sec-head"><span class="sec-no">03</span><h2>프로젝트</h2></div>
+  <p class="sec-note">최근 순. 소스가 공개된 것은 저장소 링크를 걸어 뒀습니다.</p>
 
-<h2 class="section-title">Strengths</h2>
+  <article class="proj">
+    <div class="proj-head">
+      <h3>Beastrium</h3>
+      <span class="period">2026.04 — 2026.07</span>
+    </div>
+    <span class="kind">기획 · 문서</span>
+    <dl>
+      <dt>역할</dt><dd>메인 기획, 서브 개발</dd>
+      <dt>기술</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>Git</span><span>Obsidian</span></div></dd>
+    </dl>
+    <h4>한 일</h4>
+    <ul>
+      <li><b>전체 시스템 설계</b> — 문서를 맡으면서 게임이 어떤 구조로 굴러가는지 처음부터 끝까지 훑었습니다.</li>
+      <li><b>설정 시스템 개발</b> — 설계만 하고 넘기지 않고 직접 구현까지 해, 구조와 구현을 함께 익혔습니다.</li>
+    </ul>
+  </article>
 
-<div class="grid">
+  <article class="proj">
+    <div class="proj-head">
+      <h3>엘리하이 · 젤리아이</h3>
+      <span class="period">2025.01 — 2026.02</span>
+    </div>
+    <span class="kind">기능 개발</span>
+    <dl>
+      <dt>역할</dt><dd>클라이언트 개발</dd>
+      <dt>소속</dt><dd>(주)스윙크</dd>
+      <dt>기술</dt><dd><div class="stack"><span>Cocos Creator</span><span>TypeScript</span><span>Git</span><span>Docker</span></div></dd>
+    </dl>
+    <h4>한 일</h4>
+    <ul>
+      <li>세부 콘텐츠를 1년 넘게 이어서 맡았습니다.</li>
+      <li>드로잉 시스템 최적화가 이 라인에서 나온 작업입니다. → <a href="#case">대표 사례</a></li>
+    </ul>
+  </article>
 
-<div class="card">
-<h3>도전 정신</h3>
-<p>
-새로운 기술과 환경을 두려워하지 않고
-적극적으로 학습합니다.
-</p>
-</div>
+  <article class="proj">
+    <div class="proj-head">
+      <h3>Yulatro</h3>
+      <span class="period">2023.06 — 2023.09</span>
+    </div>
+    <span class="kind">기능 개발</span>
+    <dl>
+      <dt>역할</dt><dd>개발 담당</dd>
+      <dt>기술</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>DOTween</span><span>Git</span></div></dd>
+      <dt>소스</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/Yulatro-Project(Balatro_mini_imitation)">저장소에서 보기</a></dd>
+    </dl>
+    <h4>한 일</h4>
+    <ul>
+      <li><b>메인 플로우 개발</b> — 게임이 시작해서 결과가 나오기까지의 흐름을 맡았습니다.</li>
+      <li><b>계산 시스템 개발</b> — 카드 조합에 따라 점수가 정해지는 부분을 구현했습니다.</li>
+      <li>카드 이동·정렬·연출은 ScriptableObject로 곡선 값을 빼서 조정할 수 있게 만들었습니다.</li>
+    </ul>
+    <p class="gain" style="margin:10px 0 0">Balatro의 시스템을 모작하며 만든 프로젝트입니다.</p>
+  </article>
 
-<div class="card">
-<h3>문제 해결 능력</h3>
-<p>
-원인을 분석하고 최적의 해결책을 찾기 위해 노력합니다.
-</p>
-</div>
-
-<div class="card">
-<h3>꼼꼼함</h3>
-<p>
-사소한 부분까지 검토하며 안정적인 결과물을 만듭니다.
-</p>
-</div>
-
-<div class="card">
-<h3>협업 능력</h3>
-<p>
-동아리 활동과 실무 경험을 통해 협업 역량을 키웠습니다.
-</p>
-</div>
-
-</div>
-
-</div>
+  <article class="proj">
+    <div class="proj-head">
+      <h3>C# 서버 · 클라이언트 프로토타입</h3>
+      <span class="period">학습 프로젝트</span>
+    </div>
+    <span class="kind">서버 · 네트워크</span>
+    <dl>
+      <dt>역할</dt><dd>서버와 클라이언트 양쪽 구현</dd>
+      <dt>기술</dt><dd><div class="stack"><span>C#</span><span>Unity</span><span>TCP Socket</span><span>Protocol Buffers</span></div></dd>
+      <dt>소스</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/CS_Server_ProtoType">저장소에서 보기</a></dd>
+    </dl>
+    <h4>한 일</h4>
+    <ul>
+      <li>세션·수신 버퍼·패킷 큐를 직접 만든 <b>서버 코어</b>와, 같은 구조의 클라이언트 측 커넥터를 구현했습니다.</li>
+      <li>Protocol Buffers 정의에서 <b>패킷 처리 코드를 생성</b>하는 PacketGenerator를 붙여, 프로토콜이 바뀌어도 손으로 고칠 곳을 줄였습니다.</li>
+      <li>오브젝트 풀링과 리소스·씬·UI 매니저를 나눠, 클라이언트 쪽 구조를 정리했습니다.</li>
+      <li>맵 편집용 <b>에디터 툴</b>과 클라이언트 여러 개를 한 번에 띄우는 빌드 스크립트를 만들어 테스트를 줄였습니다.</li>
+    </ul>
+    <!-- TODO: 진행 기간을 아신다면 위의 <span class="period">학습 프로젝트</span>를 "2024.03 — 2024.06" 같은 형태로 바꾸세요. -->
+  </article>
 </section>
 
-<!-- GOAL -->
-<section>
-<div class="container">
+<section id="skills">
+  <div class="sec-head"><span class="sec-no">04</span><h2>기술</h2></div>
+  <p class="sec-note">숙련도 막대 대신, 실제로 어디에 썼는지를 적었습니다.</p>
 
-<h2 class="section-title">Vision</h2>
-
-<div class="card">
-
-<p>
-실무 경험과 지속적인 학습을 기반으로
-게임 클라이언트 개발 역량을 더욱 강화하고,
-최적화와 아키텍처 설계 능력을 갖춘 개발자로 성장하는 것이 목표입니다.
-</p>
-
-</div>
-
-</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">기술</th><th scope="col">쓴 곳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cocos Creator · TypeScript</td>
+          <td>엘리하이 · 젤리아이 (실무 1년 2개월). 드로잉 시스템 설계와 최적화.</td>
+        </tr>
+        <tr>
+          <td>Unity · C#</td>
+          <td>Beastrium, Yulatro, C# 서버 프로토타입의 클라이언트</td>
+        </tr>
+        <tr>
+          <td>C# 서버 · Protocol Buffers</td>
+          <td>C# 서버 프로토타입 — 소켓, 패킷 직렬화, 코드 생성기</td>
+        </tr>
+        <tr>
+          <td>C++ · DirectX 12</td>
+          <td>학교 수업에서 엔진 개발</td>
+        </tr>
+        <tr>
+          <td>Git</td>
+          <td>모든 프로젝트. 스윙크에서는 여러 명이 붙는 저장소를 다뤘습니다.</td>
+        </tr>
+        <tr>
+          <td>Docker</td>
+          <td>엘리하이 · 젤리아이 개발 환경</td>
+        </tr>
+        <tr>
+          <td>SQL · MySQL</td>
+          <td>SQLD 취득 과정에서 학습 (2024.12)</td>
+        </tr>
+        <tr>
+          <td>Obsidian</td>
+          <td>Beastrium 기획 문서 작성 및 시스템 정리</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
+
+<section id="education">
+  <div class="sec-head"><span class="sec-no">05</span><h2>학력과 활동</h2></div>
+
+  <article class="entry">
+    <div class="when"><b>2022.03 — 2026.12</b>졸업 예정</div>
+    <div>
+      <h3>유한대학교</h3>
+      <p class="role">게임콘텐츠전공</p>
+      <ul>
+        <li>평점 <b>4.0</b></li>
+        <li>DirectX 12 기반 엔진 개발 경험</li>
+        <li>창업동아리 <b>가온</b> 활동</li>
+        <li>학과 집행부 재무 담당</li>
+        <li>2025년 1월부터는 스윙크 근무와 병행했습니다.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="when"><b>2024.12</b>취득</div>
+    <div>
+      <h3>SQLD</h3>
+      <p class="role">SQL 개발자 · 한국데이터산업진흥원</p>
+    </div>
+  </article>
+</section>
+
+<div class="closing">
+  <p>세 해 사이에 엔진도, 언어도, 맡은 자리도 계속 달라졌습니다. Unity에서 Cocos Creator로, C#에서 TypeScript로, 개발자에서 기획자로.</p>
+  <p>그때마다 새로 배워야 했고, 지금까지 가장 쓸모 있었던 습관이 그것입니다.</p>
+</div>
+
+<section id="contact">
+  <div class="sec-head"><span class="sec-no">06</span><h2>연락</h2></div>
+  <p class="sec-note">메일로 연락 주시면 확인하는 대로 답장드리겠습니다.</p>
+  <p class="indent" style="margin:0">
+    <a href="mailto:shs103401@naver.com">shs103401@naver.com</a><br />
+    <a href="https://github.com/gustjr2457">github.com/gustjr2457</a>
+  </p>
+</section>
+
+</main>
 
 <footer>
-© 2026 서현석 Portfolio
+  서현석 · 유한대학교 게임콘텐츠전공<br />
+  <a href="mailto:shs103401@naver.com">shs103401@naver.com</a> ·
+  <a href="https://github.com/gustjr2457">GitHub</a><br />
+  최종 수정 <time datetime="2026-09-03">2026년 9월 3일</time> · &copy; 2026 서현석
 </footer>
 
+</div>
 </body>
 </html>
-```
