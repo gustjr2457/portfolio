@@ -1,6 +1,7 @@
 # 서현석_포트폴리오
 
-https://gustjr2457.github.io/portfolio/
+배포: Vercel (main 브랜치에 push하면 자동으로 갱신됩니다)
+예비 주소: https://gustjr2457.github.io/portfolio/
 
 - `index.html` -> 포트폴리오 페이지
 - CS_Server_ProtoType -> C# 서버, 클라이언트 구현 후 간단 연동
@@ -21,10 +22,6 @@ https://gustjr2457.github.io/portfolio/
 | 학력, 자격증 | `<section id="education">` |
 | 맺음말 | `<div class="closing">` |
 | 최종 수정 날짜 | `<footer>` 의 `<time>` |
-
-## 채워야 할 것
-
-- C# 서버 프로토타입의 진행 기간. `index.html` 안에 `TODO` 주석으로 표시해 뒀습니다.
 
 ## 확인용
 
