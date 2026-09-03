@@ -12,215 +12,270 @@
 <meta property="og:url" content="https://seo-hyunseok.vercel.app/" />
 <meta property="og:locale" content="ko_KR" />
 <link rel="canonical" href="https://seo-hyunseok.vercel.app/" />
-<meta name="theme-color" content="#faf8f4" />
+<meta name="theme-color" content="#0d0d0d" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" as="style" crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 
 <style>
 :root{
-  /* 색은 3개만 쓴다. 종이색 · 먹색 · 남색.
-     남색을 고른 이유: 이력서는 흑백으로 출력될 일이 많은데,
-     남색은 그레이스케일로 떨어져도 먹색과 구분되면서 톤이 무너지지 않는다. */
-  --paper:#faf8f4;
-  --paper-2:#f1ede4;
-  --ink:#1c1b19;
-  --ink-2:#4a4741;
-  --muted:#7b766c;
-  --navy:#26415e;
-  --navy-deep:#1b3049;
-  --rule:#ded8cc;
+  color-scheme:dark;
 
-  --serif:"Nanum Myeongjo","Batang","Times New Roman",serif;
+  /* 앰버 CRT 모니터에서 색을 가져왔다.
+     다크 테마의 기본값은 파랑이나 보라 계열인데, 그쪽으로 가면 어디서 본 화면이 된다.
+     앰버는 검은 배경 위에서 눈이 덜 피로하고, 이 페이지에서 유일한 색이라
+     '여기를 보라'는 표시로 쓸 수 있다. */
+  --bg:#0d0d0d;
+  --bg-2:#141414;
+  --bg-3:#1b1a18;
+  --line:#2b2926;
+  --line-2:#3a3733;
+
+  --fg:#dcd7cf;
+  --fg-2:#aaa49b;
+  --muted:#8a8479;
+
+  --amber:#ffb454;
+  --amber-2:#c98a2e;
+
+  --mono:"JetBrains Mono","D2Coding",Consolas,"Courier New",monospace;
   --sans:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  --mono:"D2Coding",Consolas,"Courier New",ui-monospace,monospace;
 }
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   margin:0;
-  background:var(--paper);
-  color:var(--ink);
+  background:var(--bg);
+  color:var(--fg);
   font-family:var(--sans);
-  font-size:16.5px;
+  font-size:16px;
   line-height:1.8;
-  letter-spacing:-.004em;
+  letter-spacing:-.002em;
   word-break:keep-all;
 }
-.page{max-width:720px;margin:0 auto;padding:0 24px 96px}
+::selection{background:var(--amber);color:#0d0d0d}
 
-a{color:var(--navy-deep);text-underline-offset:3px;text-decoration-thickness:1px}
-a:hover{color:var(--navy)}
-:focus-visible{outline:2px solid var(--navy);outline-offset:3px;border-radius:2px}
+.page{max-width:760px;margin:0 auto;padding:0 24px 100px}
 
-.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:9}
+a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-2);padding-bottom:1px}
+a:hover{background:var(--amber);color:#0d0d0d;border-color:var(--amber)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--amber);color:#0d0d0d;padding:10px 16px;z-index:9;border:0}
 .skip:focus{left:0}
 
-/* ── 머리말 ── */
-header.doc{padding:68px 0 30px;border-bottom:2px solid var(--ink)}
-.name{
-  font-family:var(--serif);font-weight:800;
-  font-size:clamp(2.3rem,7vw,3.2rem);
-  line-height:1.15;letter-spacing:-.02em;margin:0 0 4px;
+/* ── 프롬프트 · 머리말 ── */
+header.doc{padding:56px 0 34px;border-bottom:1px solid var(--line)}
+.prompt{
+  font-family:var(--mono);font-size:.85rem;color:var(--muted);
+  margin:0 0 20px;letter-spacing:0;
 }
-.name .en{
-  display:block;font-family:var(--sans);font-weight:500;
-  font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--navy);margin-bottom:14px;
+.prompt i{color:var(--amber-2);font-style:normal;margin-right:.5em}
+
+.name{
+  font-family:var(--sans);font-weight:800;
+  font-size:clamp(2.1rem,6.5vw,2.9rem);
+  line-height:1.15;letter-spacing:-.035em;
+  margin:0;color:var(--fg);
+}
+.cursor{
+  display:inline-block;width:.5em;height:.95em;background:var(--amber);
+  vertical-align:-.08em;margin-left:.18em;animation:blink 1.15s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+
+.role-en{
+  font-family:var(--mono);font-size:.8rem;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--amber);margin:12px 0 0;
 }
 .tagline{
-  font-family:var(--serif);font-size:1.14rem;line-height:1.7;
-  margin:18px 0 0;padding-left:15px;border-left:2px solid var(--navy);color:#33302b;
+  font-family:var(--mono);font-size:.92rem;line-height:1.75;
+  color:var(--fg-2);margin:22px 0 0;
 }
-.tagline .sub{display:block;font-family:var(--sans);font-size:.95rem;color:var(--ink-2);margin-top:6px}
+.tagline::before{content:"> ";color:var(--amber-2)}
+.tagline .sub{
+  display:block;font-family:var(--sans);font-size:.95rem;
+  color:var(--muted);margin-top:5px;padding-left:1.1em;
+}
 
-.contact{margin-top:26px;font-size:.9rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 0}
-.contact span:not(:last-child)::after{content:"·";margin:0 12px;color:var(--rule)}
+.meta{
+  font-family:var(--mono);font-size:.82rem;line-height:2.1;
+  margin:26px 0 0;color:var(--fg-2);
+  display:grid;grid-template-columns:max-content 1fr;gap:0 20px;
+}
+.meta dt{color:var(--muted)}
+.meta dd{margin:0}
 
-nav.toc{padding:16px 0 0;font-size:.87rem;display:flex;flex-wrap:wrap;gap:6px 0}
-nav.toc a{color:var(--muted);text-decoration:none}
-nav.toc a:hover{color:var(--navy);text-decoration:underline}
-nav.toc a:not(:last-child)::after{content:"/";margin:0 11px;color:var(--rule)}
+nav.toc{margin-top:26px;font-family:var(--mono);font-size:.82rem;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc a{color:var(--muted);border:0;padding:0}
+nav.toc a::before{content:"[";color:var(--line-2)}
+nav.toc a::after{content:"]";color:var(--line-2)}
+nav.toc a:hover{background:none;color:var(--amber)}
+nav.toc a:hover::before,nav.toc a:hover::after{color:var(--amber)}
 
 /* ── 섹션 ── */
-/* 여백에 강약: 큰 전환은 72px, 내부 항목은 붙인다 */
-section{margin-top:72px}
-.sec-head{display:flex;align-items:baseline;gap:13px;margin-bottom:6px}
-.sec-no{font-family:var(--serif);font-weight:700;font-size:1rem;color:var(--navy);flex:none}
+section{margin-top:66px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sec-head::after{content:"";flex:1;height:1px;background:var(--line)}
 h2{
-  font-family:var(--serif);font-weight:700;
-  font-size:clamp(1.35rem,3.4vw,1.65rem);
-  line-height:1.35;margin:0;letter-spacing:-.015em;
+  font-family:var(--mono);font-weight:700;font-size:1rem;
+  color:var(--amber);margin:0;letter-spacing:.01em;flex:none;
 }
-.sec-note{font-size:.88rem;color:var(--muted);margin:0 0 26px;padding-left:29px}
-.indent{padding-left:29px}
+h2 .ko{font-family:var(--sans);font-weight:600;color:var(--fg);margin-left:11px;font-size:.95rem}
+.sec-note{font-size:.86rem;color:var(--muted);margin:0 0 24px}
 
-/* ── 이력 항목 (경력·학력): 좌측 기간 / 우측 내용 2단 ── */
-.entry{display:grid;grid-template-columns:132px 1fr;gap:0 24px;padding:24px 0;border-top:1px solid var(--rule)}
-.entry:first-of-type{border-top:2px solid var(--ink)}
-.entry .when{font-size:.84rem;color:var(--muted);line-height:1.6;font-variant-numeric:tabular-nums;padding-top:5px}
-.entry .when b{display:block;color:var(--navy);font-weight:700;font-size:.8rem;letter-spacing:.02em}
-.entry h3{font-family:var(--sans);font-weight:700;font-size:1.08rem;margin:0 0 2px;letter-spacing:-.01em}
-.entry .role{font-size:.9rem;color:var(--navy-deep);margin:0 0 10px;font-weight:500}
-.entry p{margin:0 0 8px;color:var(--ink-2);font-size:.97rem}
-.entry ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
-.entry li{margin-bottom:5px}
-.entry li::marker{color:var(--rule)}
-.entry li b{color:var(--ink);font-weight:600}
-.entry h4{font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.05em;color:var(--muted);margin:16px 0 7px}
+/* ── 이력 항목 ── */
+.entry{display:grid;grid-template-columns:150px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--line)}
+.entry:last-of-type{border-bottom:0}
+.entry .when{font-family:var(--mono);font-size:.79rem;line-height:1.7;color:var(--muted);padding-top:6px}
+.entry .when b{display:block;color:var(--amber-2);font-weight:500}
+.entry h3{font-family:var(--sans);font-weight:700;font-size:1.05rem;margin:0 0 2px;letter-spacing:-.015em}
+.entry .role{font-family:var(--mono);font-size:.8rem;color:var(--fg-2);margin:0 0 12px}
+.entry ul{margin:0;padding-left:1.1em;color:var(--fg-2);font-size:.95rem}
+.entry li{margin-bottom:6px}
+.entry li::marker{content:"– ";color:var(--line-2)}
+.entry li b{color:var(--fg);font-weight:600}
+.entry h4{
+  font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.08em;
+  color:var(--muted);margin:18px 0 8px;text-transform:uppercase;
+}
 
-/* ── 대표 사례: 페이지에서 가장 무거운 블록. 다른 섹션과 리듬을 다르게 준다 ── */
-.case{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:28px 0}
-.case h3{font-family:var(--serif);font-weight:700;font-size:1.38rem;margin:0 0 4px;letter-spacing:-.01em}
-.case .where{font-size:.87rem;color:var(--muted);margin:0 0 22px}
+/* ── 대표 사례 ── */
+.case{border:1px solid var(--line);background:var(--bg-2);padding:26px 26px 28px}
+.case h3{font-family:var(--sans);font-weight:700;font-size:1.2rem;margin:0 0 6px;letter-spacing:-.02em}
+.case .where{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:0 0 24px;line-height:1.8}
 .case h4{
-  font-family:var(--sans);font-size:.8rem;font-weight:700;letter-spacing:.09em;
-  color:var(--navy);margin:22px 0 8px;text-transform:uppercase;
+  font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.11em;
+  color:var(--amber);margin:24px 0 9px;text-transform:uppercase;
 }
 .case h4:first-of-type{margin-top:0}
-.case p{margin:0 0 10px;color:var(--ink-2);font-size:.97rem}
-.case ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
-.case li{margin-bottom:5px}
-.case li::marker{color:var(--rule)}
+.case p{margin:0 0 11px;color:var(--fg-2);font-size:.95rem}
+.case p:last-child{margin-bottom:0}
+.case b{color:var(--fg);font-weight:600}
 
-pre.code{
-  margin:12px 0 4px;padding:14px 16px;
-  background:var(--paper-2);border-left:3px solid var(--navy);
-  overflow-x:auto;font-family:var(--mono);
-  font-size:.85rem;line-height:1.7;color:#2b2926;
+.codeblock{margin:14px 0 6px;border:1px solid var(--line)}
+.codebar{
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  background:var(--bg-3);padding:6px 13px;border-bottom:1px solid var(--line);
+  letter-spacing:.04em;
 }
-pre.code + .caption{font-size:.82rem;color:var(--muted);margin:0}
+.codeblock pre{
+  margin:0;padding:15px 16px;overflow-x:auto;background:var(--bg);
+  font-family:var(--mono);font-size:.83rem;line-height:1.75;color:var(--fg);
+}
+.codeblock pre .kw{color:var(--amber)}
+.codeblock pre .fn{color:#9fc5a0}
+.caption{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
 
-.results{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule);margin-top:10px}
-.results div{padding:16px 18px 14px;border-right:1px solid var(--rule)}
-.results div:last-child{border-right:0}
+.results{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);margin-top:12px}
+.results div{padding:18px 20px 16px}
+.results div:first-child{border-right:1px solid var(--line)}
 .results b{
-  display:block;font-family:var(--serif);font-weight:700;
-  font-size:1.5rem;line-height:1.25;color:var(--navy);
-  font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+  display:block;font-family:var(--mono);font-weight:700;
+  font-size:1.6rem;line-height:1.2;color:var(--amber);letter-spacing:-.01em;
 }
-.results span{display:block;font-size:.85rem;color:var(--muted);margin-top:4px}
+.results span{display:block;font-size:.8rem;color:var(--muted);margin-top:7px;font-family:var(--sans)}
 
-/* ── 프로젝트: 이력 항목과 또 다른 리듬 ── */
-.proj{padding:30px 0;border-top:1px solid var(--rule)}
-.proj:first-of-type{border-top:2px solid var(--ink)}
-.proj-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.proj h3{font-family:var(--serif);font-weight:700;font-size:1.32rem;margin:0;letter-spacing:-.01em}
-.proj .period{font-size:.83rem;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
+/* ── 프로젝트 ── */
+.proj{padding:26px 0;border-bottom:1px solid var(--line)}
+.proj:last-of-type{border-bottom:0}
+.proj-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.proj h3{font-family:var(--sans);font-weight:700;font-size:1.15rem;margin:0;letter-spacing:-.02em}
+.proj .period{font-family:var(--mono);font-size:.78rem;color:var(--amber-2);flex:none}
 .proj .kind{
-  display:inline-block;margin:9px 0 14px;font-size:.76rem;letter-spacing:.06em;
-  color:var(--navy);border:1px solid var(--navy);border-radius:3px;padding:1px 7px;
+  display:inline-block;margin:10px 0 15px;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.06em;color:var(--muted);
 }
-.proj dl{margin:0 0 16px;display:grid;grid-template-columns:76px 1fr;gap:6px 16px;font-size:.93rem}
-.proj dt{color:var(--muted);font-size:.84rem;padding-top:2px}
-.proj dd{margin:0;color:var(--ink-2)}
-.proj h4{font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.05em;color:var(--muted);margin:0 0 7px}
-.proj ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:.97rem}
-.proj li{margin-bottom:6px}
-.proj li::marker{color:var(--rule)}
-.proj li b{color:var(--ink);font-weight:600}
-.proj .gain{color:var(--muted);font-size:.92rem}
+.proj .kind::before{content:"["}
+.proj .kind::after{content:"]"}
+.proj dl{margin:0 0 16px;display:grid;grid-template-columns:max-content 1fr;gap:5px 20px;font-size:.88rem}
+.proj dt{font-family:var(--mono);color:var(--muted);font-size:.78rem;padding-top:2px}
+.proj dd{margin:0;color:var(--fg-2)}
+.proj h4{
+  font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.08em;
+  color:var(--muted);margin:0 0 8px;text-transform:uppercase;
+}
+.proj ul{margin:0;padding-left:1.1em;color:var(--fg-2);font-size:.95rem}
+.proj li{margin-bottom:7px}
+.proj li::marker{content:"– ";color:var(--line-2)}
+.proj li b{color:var(--fg);font-weight:600}
+.proj .note{font-size:.86rem;color:var(--muted);margin:12px 0 0}
 
-.stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack{display:flex;flex-wrap:wrap;gap:5px}
 .stack span{
-  font-size:.8rem;color:var(--ink-2);border:1px solid var(--rule);
-  border-radius:3px;padding:1px 8px;background:var(--paper-2);
+  font-family:var(--mono);font-size:.74rem;color:var(--fg-2);
+  border:1px solid var(--line-2);padding:1px 7px;
 }
 
 /* ── 표 ── */
-.table-wrap{overflow-x:auto;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
-table{width:100%;border-collapse:collapse;font-size:.94rem;min-width:420px}
-th,td{text-align:left;padding:13px 2px;vertical-align:top;border-bottom:1px solid var(--rule)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:430px}
+th,td{text-align:left;padding:12px 15px;vertical-align:top;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:0}
-th{font-weight:700;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding-bottom:9px}
-td:first-child{width:36%;font-weight:600;color:var(--ink);padding-right:16px}
-td:last-child{color:var(--ink-2)}
+th{
+  font-family:var(--mono);font-weight:500;color:var(--muted);font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--bg-2);
+}
+td:first-child{width:38%;font-family:var(--mono);font-size:.82rem;color:var(--amber-2);padding-right:14px}
+td:last-child{color:var(--fg-2)}
 
 /* ── 맺음 ── */
 .closing{
-  margin-top:72px;padding:22px 24px;background:var(--paper-2);
-  border-left:3px solid var(--navy);
-  font-family:var(--serif);font-size:1.05rem;line-height:1.75;color:#33302b;
+  margin-top:66px;padding:20px 22px;
+  background:var(--bg-2);border-left:2px solid var(--amber);
+  font-size:.98rem;line-height:1.8;color:var(--fg-2);
 }
 .closing p{margin:0}
-.closing p + p{margin-top:12px}
+.closing p + p{margin-top:11px}
+.closing b{color:var(--fg);font-weight:600}
 
-footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted);line-height:1.9}
-footer a{color:var(--muted)}
-footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
+footer{
+  margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:2;
+}
+footer a{color:var(--muted);border-bottom-color:var(--line-2)}
+footer a:hover{background:var(--amber);color:#0d0d0d}
 
 /* ── 좁은 화면 ── */
-@media (max-width:620px){
-  body{font-size:16px}
-  .page{padding:0 20px 72px}
-  header.doc{padding-top:44px}
-  section{margin-top:56px}
+@media (max-width:640px){
+  .page{padding:0 18px 76px}
+  header.doc{padding-top:40px}
+  section{margin-top:52px}
   .entry{grid-template-columns:1fr;gap:0}
-  .entry .when{padding:0 0 8px}
-  .entry .when b{display:inline;margin-right:8px}
-  .sec-note,.indent{padding-left:0}
-  .proj dl{grid-template-columns:66px 1fr}
+  .entry .when{padding:0 0 9px}
+  .entry .when b{display:inline;margin-right:9px}
+  .case{padding:22px 18px}
   .results{grid-template-columns:1fr}
-  .results div{border-right:0;border-bottom:1px solid var(--rule)}
-  .results div:last-child{border-bottom:0}
-  .closing{padding:20px}
+  .results div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .meta{grid-template-columns:1fr;gap:0;line-height:1.9}
+  .meta dt{color:var(--muted);margin-top:8px}
+  .closing{padding:18px}
 }
 
 /* ── 인쇄 ── */
-/* 이력서는 결국 종이로 나가는 일이 있어서 인쇄 스타일을 따로 잡았다 */
+/* 화면은 어둡지만 종이로 뽑으면 반전시킨다. 검정 배경을 그대로 인쇄할 이유가 없다 */
 @media print{
-  body{background:#fff;font-size:10.5pt;line-height:1.6}
+  :root{
+    --bg:#fff;--bg-2:#fff;--bg-3:#fff;
+    --line:#c9c9c9;--line-2:#c9c9c9;
+    --fg:#000;--fg-2:#222;--muted:#555;
+    --amber:#000;--amber-2:#444;
+  }
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.6}
   .page{max-width:none;padding:0}
-  nav.toc,.skip{display:none}
+  nav.toc,.skip,.cursor{display:none}
   header.doc{padding-top:0}
-  section{margin-top:26px;page-break-inside:avoid}
-  .proj,.entry,.case{page-break-inside:avoid}
-  .closing,pre.code{background:none;padding-left:14px}
-  a{text-decoration:none;color:var(--ink)}
+  section{margin-top:24px;page-break-inside:avoid}
+  .entry,.proj,.case{page-break-inside:avoid}
+  .case{border:1px solid #c9c9c9}
+  a{color:#000;border-bottom:0}
+  a:hover{background:none}
 }
 </style>
 </head>
@@ -230,49 +285,51 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
 <div class="page">
 
 <header class="doc">
-  <h1 class="name">
-    <span class="en">Seo Hyunseok · Client Developer</span>
-    서현석
-  </h1>
+  <p class="prompt"><i>$</i>whoami</p>
+
+  <h1 class="name">서현석<span class="cursor" aria-hidden="true"></span></h1>
+  <p class="role-en">Seo Hyunseok / Client Developer</p>
+
   <p class="tagline">
     지속적인 성장을 추구하는 개발자입니다.
     <span class="sub">Unity와 Cocos Creator로 게임과 교육 콘텐츠의 클라이언트를 만듭니다.</span>
   </p>
-  <p class="contact">
-    <span>shs103401@naver.com</span>
-    <span>유한대학교 게임콘텐츠전공</span>
-    <span>2026.12 졸업 예정</span>
-  </p>
+
+  <dl class="meta">
+    <dt>email</dt><dd><a href="mailto:shs103401@naver.com">shs103401@naver.com</a></dd>
+    <dt>github</dt><dd><a href="https://github.com/gustjr2457">github.com/gustjr2457</a></dd>
+    <dt>school</dt><dd>유한대학교 게임콘텐츠전공 · 2026.12 졸업 예정</dd>
+  </dl>
+
   <nav class="toc" aria-label="목차">
-    <a href="#career">경력</a>
-    <a href="#case">대표 사례</a>
-    <a href="#projects">프로젝트</a>
-    <a href="#skills">기술</a>
-    <a href="#education">학력과 활동</a>
-    <a href="#contact">연락</a>
+    <a href="#career">career</a>
+    <a href="#case">case</a>
+    <a href="#projects">projects</a>
+    <a href="#skills">skills</a>
+    <a href="#education">education</a>
+    <a href="#contact">contact</a>
   </nav>
 </header>
 
 <main id="main">
 
 <section id="career">
-  <div class="sec-head"><span class="sec-no">01</span><h2>경력</h2></div>
+  <div class="sec-head"><h2>[career]<span class="ko">경력</span></h2></div>
   <p class="sec-note">최근 순.</p>
 
   <article class="entry">
-    <div class="when"><b>2025.01 — 2026.02</b>1년 2개월</div>
+    <div class="when"><b>2025.01 → 2026.02</b>1년 2개월</div>
     <div>
       <h3>(주)스윙크</h3>
       <p class="role">클라이언트 개발자 · 교육용 게임 소프트웨어</p>
       <ul>
         <li>메가스터디, 키즈엠 등 <b>대형 교육 업체</b>의 클라이언트를 개발했습니다.</li>
         <li>Cocos Creator · TypeScript 기반으로 <b>세부 콘텐츠를 다수 제작</b>했습니다.</li>
-        <li><b>드로잉 시스템</b> 설계와 개발, 성능 최적화를 맡았습니다.
-            → <a href="#case">대표 사례</a></li>
+        <li><b>드로잉 시스템</b> 설계와 개발, 성능 최적화를 맡았습니다. → <a href="#case">case</a></li>
         <li>기능 유지보수와 버그 수정, 코드 리뷰를 포함한 협업을 함께 했습니다.</li>
       </ul>
-      <h4>이 기간에 얻은 것</h4>
-      <ul class="gain">
+      <h4>얻은 것</h4>
+      <ul>
         <li>TypeScript로 실무 코드를 1년 넘게 쓰면서 붙은 언어 감각</li>
         <li>캔버스 시스템 최적화 경험</li>
         <li>사람이 여럿 붙는 대형 저장소에서의 Git 운영 경험</li>
@@ -282,63 +339,66 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
 </section>
 
 <section id="case">
-  <div class="sec-head"><span class="sec-no">02</span><h2>대표 사례</h2></div>
+  <div class="sec-head"><h2>[case]<span class="ko">대표 사례</span></h2></div>
   <p class="sec-note">가장 손이 많이 갔고, 숫자로 확인된 작업입니다.</p>
 
   <article class="case">
     <h3>드로잉 시스템 레이어 관리 최적화</h3>
-    <p class="where">교육용 드로잉 게임 · (주)스윙크 · Cocos Creator, TypeScript · 설계 및 최적화 담당</p>
+    <p class="where">교육용 드로잉 게임 · (주)스윙크<br />Cocos Creator, TypeScript · 설계 및 최적화 담당</p>
 
-    <h4>문제</h4>
+    <h4>problem</h4>
     <p>
       기존 드로잉 시스템은 사용자가 입력을 재개하거나 도구를 바꿀 때마다 새 레이어를 만들었습니다.
       그리는 동안 레이어가 계속 쌓이면서 메모리와 렌더링 비용이 같이 올라갔고,
       저사양 태블릿에서 특히 느려졌습니다.
     </p>
 
-    <h4>해결</h4>
+    <h4>solution</h4>
     <p>
       입력 이벤트와 도구 변경 이벤트를 분리했습니다.
       도구를 바꿨다는 사실만으로는 레이어를 만들지 않고,
       <b>실제로 획이 시작되는 시점</b>에만 만들도록 조건을 옮겼습니다.
     </p>
-<pre class="code">if (toolChanged &amp;&amp; isDrawingStarted) {
-    createNewLayer();
-    toolChanged = false;
+    <div class="codeblock">
+      <div class="codebar">drawing-system.ts</div>
+<pre><span class="kw">if</span> (toolChanged &amp;&amp; isDrawingStarted) {
+    <span class="fn">createNewLayer</span>();
+    toolChanged = <span class="kw">false</span>;
 }</pre>
-    <p class="caption">도구 변경 플래그를 그리기 시작 시점에 소비하도록 바꾼 부분.</p>
-
-    <h4>결과</h4>
-    <div class="results">
-      <div><b>200개 → 40개</b><span>평균 생성 레이어 수</span></div>
-      <div><b>약 80% 감소</b><span>레이어 생성 호출 횟수</span></div>
     </div>
-    <p style="margin-top:14px">
+    <p class="caption">// 도구 변경 플래그를 그리기 시작 시점에 소비하도록 바꾼 부분</p>
+
+    <h4>result</h4>
+    <div class="results">
+      <div><b>200 → 40</b><span>평균 생성 레이어 수</span></div>
+      <div><b>-80%</b><span>레이어 생성 호출 횟수</span></div>
+    </div>
+    <p style="margin-top:15px">
       메모리와 렌더링 비용이 함께 줄었고, 문제가 됐던 저사양 태블릿에서 안정적으로 돌아갔습니다.
     </p>
 
-    <h4>남은 생각</h4>
-    <p style="margin-bottom:0">
+    <h4>takeaway</h4>
+    <p>
       기능이 도는 것과 값싸게 도는 것은 다른 문제였습니다.
-      객체를 언제 만들지를 <b>상태로 판단하게</b> 바꿨더니 성능과 유지보수가 같이 좋아졌는데,
+      객체를 언제 만들지를 <b>상태로 판단하게</b> 바꿨더니 성능과 유지보수가 같이 좋아졌고,
       이후 작업에서도 같은 방식으로 먼저 의심해 보게 됐습니다.
     </p>
   </article>
 </section>
 
 <section id="projects">
-  <div class="sec-head"><span class="sec-no">03</span><h2>프로젝트</h2></div>
+  <div class="sec-head"><h2>[projects]<span class="ko">프로젝트</span></h2></div>
   <p class="sec-note">최근 순. 소스가 공개된 것은 저장소 링크를 걸어 뒀습니다.</p>
 
   <article class="proj">
     <div class="proj-head">
       <h3>Beastrium</h3>
-      <span class="period">2026.04 — 2026.07</span>
+      <span class="period">2026.04 → 2026.07</span>
     </div>
     <span class="kind">기획 · 문서</span>
     <dl>
-      <dt>역할</dt><dd>메인 기획, 서브 개발</dd>
-      <dt>기술</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>Git</span><span>Obsidian</span></div></dd>
+      <dt>role</dt><dd>메인 기획, 서브 개발</dd>
+      <dt>stack</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>Git</span><span>Obsidian</span></div></dd>
     </dl>
     <h4>한 일</h4>
     <ul>
@@ -350,31 +410,31 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
   <article class="proj">
     <div class="proj-head">
       <h3>엘리하이 · 젤리아이</h3>
-      <span class="period">2025.01 — 2026.02</span>
+      <span class="period">2025.01 → 2026.02</span>
     </div>
     <span class="kind">기능 개발</span>
     <dl>
-      <dt>역할</dt><dd>클라이언트 개발</dd>
-      <dt>소속</dt><dd>(주)스윙크</dd>
-      <dt>기술</dt><dd><div class="stack"><span>Cocos Creator</span><span>TypeScript</span><span>Git</span><span>Docker</span></div></dd>
+      <dt>role</dt><dd>클라이언트 개발</dd>
+      <dt>org</dt><dd>(주)스윙크</dd>
+      <dt>stack</dt><dd><div class="stack"><span>Cocos Creator</span><span>TypeScript</span><span>Git</span><span>Docker</span></div></dd>
     </dl>
     <h4>한 일</h4>
     <ul>
       <li>세부 콘텐츠를 1년 넘게 이어서 맡았습니다.</li>
-      <li>드로잉 시스템 최적화가 이 라인에서 나온 작업입니다. → <a href="#case">대표 사례</a></li>
+      <li>드로잉 시스템 최적화가 이 라인에서 나온 작업입니다. → <a href="#case">case</a></li>
     </ul>
   </article>
 
   <article class="proj">
     <div class="proj-head">
       <h3>Yulatro</h3>
-      <span class="period">2023.06 — 2023.09</span>
+      <span class="period">2023.06 → 2023.09</span>
     </div>
     <span class="kind">기능 개발</span>
     <dl>
-      <dt>역할</dt><dd>개발 담당</dd>
-      <dt>기술</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>DOTween</span><span>Git</span></div></dd>
-      <dt>소스</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/Yulatro-Project(Balatro_mini_imitation)">저장소에서 보기</a></dd>
+      <dt>role</dt><dd>개발 담당</dd>
+      <dt>stack</dt><dd><div class="stack"><span>Unity</span><span>C#</span><span>DOTween</span><span>Git</span></div></dd>
+      <dt>source</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/Yulatro-Project(Balatro_mini_imitation)">저장소에서 보기</a></dd>
     </dl>
     <h4>한 일</h4>
     <ul>
@@ -382,19 +442,19 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
       <li><b>계산 시스템 개발</b> — 카드 조합에 따라 점수가 정해지는 부분을 구현했습니다.</li>
       <li>카드 이동·정렬·연출은 ScriptableObject로 곡선 값을 빼서 조정할 수 있게 만들었습니다.</li>
     </ul>
-    <p class="gain" style="margin:10px 0 0">Balatro의 시스템을 모작하며 만든 프로젝트입니다.</p>
+    <p class="note">Balatro의 시스템을 모작하며 만든 프로젝트입니다.</p>
   </article>
 
   <article class="proj">
     <div class="proj-head">
       <h3>C# 서버 · 클라이언트 프로토타입</h3>
-      <span class="period">2022.07 — 2022.09</span>
+      <span class="period">2022.07 → 2022.09</span>
     </div>
     <span class="kind">서버 · 네트워크</span>
     <dl>
-      <dt>역할</dt><dd>서버와 클라이언트 양쪽 구현</dd>
-      <dt>기술</dt><dd><div class="stack"><span>C#</span><span>Unity</span><span>TCP Socket</span><span>Protocol Buffers</span></div></dd>
-      <dt>소스</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/CS_Server_ProtoType">저장소에서 보기</a></dd>
+      <dt>role</dt><dd>서버와 클라이언트 양쪽 구현</dd>
+      <dt>stack</dt><dd><div class="stack"><span>C#</span><span>Unity</span><span>TCP Socket</span><span>Protocol Buffers</span></div></dd>
+      <dt>source</dt><dd><a href="https://github.com/gustjr2457/portfolio/tree/main/CS_Server_ProtoType">저장소에서 보기</a></dd>
     </dl>
     <h4>한 일</h4>
     <ul>
@@ -403,18 +463,18 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
       <li>오브젝트 풀링과 리소스·씬·UI 매니저를 나눠, 클라이언트 쪽 구조를 정리했습니다.</li>
       <li>맵 편집용 <b>에디터 툴</b>과 클라이언트 여러 개를 한 번에 띄우는 빌드 스크립트를 만들어 테스트를 줄였습니다.</li>
     </ul>
-    <p class="gain" style="margin:10px 0 0">입학한 해 여름방학에 진행한 학습 프로젝트입니다.</p>
+    <p class="note">입학한 해 여름방학에 진행한 학습 프로젝트입니다.</p>
   </article>
 </section>
 
 <section id="skills">
-  <div class="sec-head"><span class="sec-no">04</span><h2>기술</h2></div>
+  <div class="sec-head"><h2>[skills]<span class="ko">기술</span></h2></div>
   <p class="sec-note">숙련도 막대 대신, 실제로 어디에 썼는지를 적었습니다.</p>
 
   <div class="table-wrap">
     <table>
       <thead>
-        <tr><th scope="col">기술</th><th scope="col">쓴 곳</th></tr>
+        <tr><th scope="col">stack</th><th scope="col">쓴 곳</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -426,7 +486,7 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
           <td>Beastrium, Yulatro, C# 서버 프로토타입의 클라이언트</td>
         </tr>
         <tr>
-          <td>C# 서버 · Protocol Buffers</td>
+          <td>C# Server · Protobuf</td>
           <td>C# 서버 프로토타입 — 소켓, 패킷 직렬화, 코드 생성기</td>
         </tr>
         <tr>
@@ -455,10 +515,10 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
 </section>
 
 <section id="education">
-  <div class="sec-head"><span class="sec-no">05</span><h2>학력과 활동</h2></div>
+  <div class="sec-head"><h2>[education]<span class="ko">학력과 활동</span></h2></div>
 
   <article class="entry">
-    <div class="when"><b>2022.03 — 2026.12</b>졸업 예정</div>
+    <div class="when"><b>2022.03 → 2026.12</b>졸업 예정</div>
     <div>
       <h3>유한대학교</h3>
       <p class="role">게임콘텐츠전공</p>
@@ -483,25 +543,23 @@ footer .colophon{margin-top:10px;font-size:.8rem;color:#948f85}
 
 <div class="closing">
   <p>세 해 사이에 엔진도, 언어도, 맡은 자리도 계속 달라졌습니다. Unity에서 Cocos Creator로, C#에서 TypeScript로, 개발자에서 기획자로.</p>
-  <p>그때마다 새로 배워야 했고, 지금까지 가장 쓸모 있었던 습관이 그것입니다.</p>
+  <p>그때마다 새로 배워야 했고, <b>지금까지 가장 쓸모 있었던 습관이 그것입니다.</b></p>
 </div>
 
 <section id="contact">
-  <div class="sec-head"><span class="sec-no">06</span><h2>연락</h2></div>
+  <div class="sec-head"><h2>[contact]<span class="ko">연락</span></h2></div>
   <p class="sec-note">메일로 연락 주시면 확인하는 대로 답장드리겠습니다.</p>
-  <p class="indent" style="margin:0">
-    <a href="mailto:shs103401@naver.com">shs103401@naver.com</a><br />
-    <a href="https://github.com/gustjr2457">github.com/gustjr2457</a>
-  </p>
+  <dl class="meta" style="margin-top:0">
+    <dt>email</dt><dd><a href="mailto:shs103401@naver.com">shs103401@naver.com</a></dd>
+    <dt>github</dt><dd><a href="https://github.com/gustjr2457">github.com/gustjr2457</a></dd>
+  </dl>
 </section>
 
 </main>
 
 <footer>
   서현석 · 유한대학교 게임콘텐츠전공<br />
-  <a href="mailto:shs103401@naver.com">shs103401@naver.com</a> ·
-  <a href="https://github.com/gustjr2457">GitHub</a><br />
-  최종 수정 <time datetime="2026-09-03">2026년 9월 3일</time> · &copy; 2026 서현석
+  최종 수정 <time datetime="2026-09-03">2026-09-03</time> · &copy; 2026 서현석
 </footer>
 
 </div>
