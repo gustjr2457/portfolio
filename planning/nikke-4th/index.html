@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>니케 4주년 업데이트 매출 순위 급등 원인 분석 · 서현석</title>
+<meta name="description" content="승리의 여신: 니케 4주년 업데이트 직후 국내 구글플레이 매출 35위권에서 5위로 오른 원인을 직접 매출 · 유입과 리텐션 · 몰입 세 층위로 분석.">
+<meta name="author" content="서현석">
+<meta name="theme-color" content="#0d0d0d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* 포트폴리오(site.css)와 같은 앰버 CRT 팔레트. 차트 스크립트가 쓰는 변수 이름은 원본 그대로 둔다 */
+  :root {
+    color-scheme: dark;
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface-2: #1b1a18;
+    --border: #2b2926;
+    --border-2: #3a3733;
+    --grid: #232220;
+    --text: #dcd7cf;
+    --text-2: #aaa49b;
+    --text-3: #8a8479;
+    --accent: #ffb454;
+    --accent-2: #c98a2e;
+    --accent-soft: rgba(255,180,84,.12);
+    --accent-ink: #ffb454;
+    --mono: "JetBrains Mono","D2Coding",Consolas,"Pretendard Variable",Pretendard,"Malgun Gothic",monospace;
+    --sans: "Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans);
+    font-size: 15.5px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere;
+  }
+  ::selection { background: var(--accent); color: #0d0d0d; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .num, td, .stat-value, .chart text { font-variant-numeric: tabular-nums; }
+
+  /* 상단 바 */
+  nav.top { position: sticky; top: 0; z-index: 20; background: rgba(13,13,13,.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); }
+  nav.top .in { max-width: 980px; margin: 0 auto; padding: 13px 24px; display: flex; gap: 4px 12px; overflow-x: auto; scrollbar-width: none; font-family: var(--mono); font-size: 12.5px; }
+  nav.top a { flex: none; color: var(--text-3); text-decoration: none; }
+  nav.top a::before { content: "["; color: var(--border-2); }
+  nav.top a::after { content: "]"; color: var(--border-2); }
+  nav.top a:hover { color: var(--accent); }
+  nav.top a:hover::before, nav.top a:hover::after { color: var(--accent); }
+  nav.top a.back { color: var(--text); font-weight: 700; margin-right: 10px; }
+  nav.top a.back::before, nav.top a.back::after { content: none; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 52px 24px 80px; }
+  header { border-bottom: 1px solid var(--border); padding-bottom: 30px; margin-bottom: 30px; }
+  .eyebrow { font-family: var(--mono); font-size: 12.5px; font-weight: 500; letter-spacing: .1em; color: var(--accent); margin: 0 0 14px; }
+  .eyebrow::before { content: "$ "; color: var(--accent-2); }
+  h1 { font-size: clamp(25px, 4.4vw, 36px); line-height: 1.3; margin: 0 0 12px; letter-spacing: -.035em; font-weight: 800; }
+  .meta { font-family: var(--mono); color: var(--text-3); font-size: 12.5px; margin: 0 0 22px; }
+  .meta::before { content: "// "; color: var(--border-2); }
+  .lede { font-size: 16.5px; margin: 0; color: var(--text); font-weight: 500; letter-spacing: -.01em; border-left: 2px solid var(--accent); padding: 4px 0 4px 18px; }
+  section { margin: 56px 0; scroll-margin-top: 64px; }
+  h2 { font-size: 18px; margin: 0 0 8px; display: flex; gap: 12px; align-items: center; letter-spacing: -.02em; font-weight: 700; }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  h2 .no { font-family: var(--mono); color: var(--accent); font-size: 14.5px; font-variant-numeric: tabular-nums; font-weight: 700; }
+  h2 .no::before { content: "["; }
+  h2 .no::after { content: "]"; }
+  .card h2::after { content: none; }
+  .sub { color: var(--text-2); margin: 0 0 18px; font-size: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); padding: 20px; }
+
+  /* 요약 */
+  .exec-sum { background: var(--surface); border: 1px solid var(--border); border-left: 2px solid var(--accent); }
+  .exec-list { margin: 0; padding-left: 20px; font-size: 14.5px; color: var(--text-2); }
+  .exec-list li { margin-bottom: 8px; }
+  .exec-list li::marker { font-family: var(--mono); color: var(--accent-2); }
+  .exec-list li:last-child { margin-bottom: 0; }
+  .exec-list b { color: var(--text); margin-right: 6px; }
+  .exec-h { font-family: var(--mono); font-size: 12.5px; font-weight: 500; color: var(--text-3); letter-spacing: .06em; margin: 26px 0 10px; }
+  .exec-h::before { content: "// "; color: var(--accent-2); }
+  .uses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .use { background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; }
+  .use p { margin: 0; font-size: 13px; color: var(--text-2); line-height: 1.65; }
+  .use .use-role { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+  .use .use-do { font-size: 14.5px; color: var(--text); margin-bottom: 6px; }
+  .exec + section { margin-top: 24px; }
+  @media (max-width: 860px) { .uses { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .uses { grid-template-columns: 1fr; } }
+
+  /* 숫자 타일 */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
+  .stat { background: transparent; border-right: 1px solid var(--border); padding: 18px 18px 16px; }
+  .stat:last-child { border-right: 0; }
+  .stat-label { font-size: 12.5px; color: var(--text-3); margin: 0 0 6px; }
+  .stat-value { font-family: var(--mono); font-size: 26px; font-weight: 700; line-height: 1.2; margin: 0; letter-spacing: -.01em; color: var(--text); }
+  .stat-value .arrow { color: var(--text-3); font-weight: 400; margin: 0 4px; }
+  .stat-value .hi { color: var(--accent); }
+  .stat-value .muted { color: var(--text-3); }
+  .stat-note { font-size: 12px; color: var(--text-3); margin: 8px 0 0; }
+
+  /* 차트 */
+  .chart-wrap { position: relative; }
+  .chart svg { display: block; width: 100%; overflow: visible; }
+  .chart text { fill: var(--text-3); font-size: 12px; font-family: var(--mono); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--text-2); margin: 0 0 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { border-radius: 0 !important; }
+  .sw-line { width: 22px; height: 0; border-top: 2px dashed var(--accent); }
+  .sw-dot { width: 9px; height: 9px; border-radius: 50% !important; background: var(--accent); box-shadow: 0 0 0 2px var(--surface); }
+  .sw-range { width: 3px; height: 14px; background: var(--accent); opacity: .55; }
+  .sw-ref { width: 0; height: 14px; border-left: 1px solid var(--text-3); }
+  .tip {
+    position: absolute; pointer-events: none; background: var(--accent); color: #0d0d0d;
+    padding: 7px 10px; font-size: 12.5px; opacity: 0; transition: opacity .12s; white-space: nowrap; z-index: 5;
+  }
+  .tip b { font-variant-numeric: tabular-nums; }
+  .tip .t-src { color: rgba(13,13,13,.7); font-size: 11.5px; }
+  details { margin-top: 14px; font-size: 13px; color: var(--text-2); }
+  summary { cursor: pointer; color: var(--text-3); font-family: var(--mono); font-size: 12.5px; }
+  summary:hover { color: var(--accent); }
+
+  /* 표 */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td:first-child, td.r { white-space: nowrap; }
+  th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-2); }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--text); }
+  thead th { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; color: var(--text-3); font-weight: 500; background: var(--surface-2); }
+  td.r, th.r { text-align: right; }
+  .rank { font-family: var(--mono); font-weight: 500; color: var(--text); }
+  .rank.top { color: var(--accent); font-weight: 700; }
+  .muted { color: var(--text-3); }
+  .tag {
+    display: inline-block; font-family: var(--mono); font-size: 11px; line-height: 1; padding: 3px 6px;
+    border: 1px dashed var(--text-3); color: var(--text-2); vertical-align: 2px; white-space: nowrap; font-weight: 400;
+  }
+  .tag.fact { border-style: solid; border-color: var(--accent-2); color: var(--accent); }
+
+  /* 간트 */
+  .gantt { position: relative; }
+  .g-row { display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: center; min-height: 40px; border-bottom: 1px solid var(--grid); }
+  .g-row:last-child { border-bottom: 0; }
+  .g-label { font-size: 13px; line-height: 1.4; padding: 6px 0; color: var(--text); }
+  .g-label small { display: block; color: var(--text-3); font-size: 11.5px; }
+  .g-track { position: relative; height: 40px; }
+  .g-bar { position: absolute; top: 12px; height: 16px; background: var(--accent); }
+  .g-bar.soft { background: var(--accent-soft); border: 1px solid var(--accent-2); }
+  .g-bar.est { background: repeating-linear-gradient(135deg, var(--accent-soft) 0 5px, transparent 5px 9px); border: 1px dashed var(--text-3); }
+  .g-bar.open { background: linear-gradient(90deg, var(--accent-soft), transparent); border-left: 4px solid var(--accent); }
+  .g-mark { position: absolute; top: 9px; width: 4px; height: 20px; background: var(--accent); }
+  .g-axis { display: grid; grid-template-columns: 200px 1fr; gap: 12px; }
+  .g-ticks { position: relative; height: 22px; font-family: var(--mono); font-size: 11.5px; color: var(--text-3); }
+  .g-ticks span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .g-today { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--text); pointer-events: none; }
+  .g-today-lbl { position: absolute; top: -18px; font-family: var(--mono); font-size: 11px; color: var(--text); transform: translateX(-50%); white-space: nowrap; }
+  .g-body { position: relative; padding-top: 22px; }
+  .g-overlay { position: absolute; top: 0; bottom: 0; right: 0; }
+
+  /* 세 층위 */
+  .layers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .layer { background: var(--surface); border: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; }
+  .layer.primary { border-top: 2px solid var(--accent); }
+  .layer h3 { margin: 0 0 4px; font-size: 16px; }
+  .layer.primary h3 { color: var(--accent); }
+  .layer .role { font-size: 12.5px; color: var(--text-3); margin: 0 0 12px; }
+  .layer ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--text-2); }
+  .layer li { margin-bottom: 7px; }
+  .layer li::marker { content: "– "; color: var(--border-2); }
+  .layer li b { color: var(--text); }
+  .layer .why { margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-2); }
+  .layer .why b { font-family: var(--mono); color: var(--accent); font-weight: 500; margin-right: 4px; }
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--text-2); margin: 16px 0 0; font-family: var(--mono); }
+  .flow .step { border: 1px solid var(--border-2); padding: 3px 10px; color: var(--text); font-family: var(--sans); }
+  .flow .step:last-of-type { border-color: var(--accent); color: var(--accent); }
+  .flow .arr { color: var(--accent-2); }
+
+  /* 시사점 */
+  .imp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .imp h3 { font-size: 15.5px; margin: 0 0 10px; }
+  .imp p, .imp ul { margin: 0; font-size: 14px; color: var(--text-2); }
+  .imp ul { padding-left: 18px; }
+  .imp li { margin-bottom: 8px; }
+  .imp li::marker { content: "– "; color: var(--border-2); }
+  .callout-est { border-style: dashed; border-color: var(--border-2); }
+
+  .note { font-size: 13px; color: var(--text-3); line-height: 1.7; background: var(--surface); border-left: 2px solid var(--border-2); padding: 14px 18px; }
+  .note b { color: var(--text); }
+  .sources ol { padding-left: 22px; font-size: 13px; color: var(--text-2); margin: 0; }
+  .sources li { margin-bottom: 4px; }
+  .sources li::marker { font-family: var(--mono); color: var(--text-3); }
+  .sources a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-2); word-break: break-all; }
+  .sources a:hover { background: var(--accent); color: #0d0d0d; }
+  .sources .note { background: none; border: 0; padding: 0; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 12.5px; color: var(--text-3); line-height: 2; }
+  footer a { color: var(--text-3); text-decoration: none; border-bottom: 1px solid var(--border-2); }
+  footer a:hover { background: var(--accent); color: #0d0d0d; }
+
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .layers, .imp { grid-template-columns: 1fr; }
+    .g-row, .g-axis { grid-template-columns: 112px 1fr; gap: 8px; }
+    .g-label { font-size: 12px; }
+  }
+  @media (max-width: 420px) {
+    .wrap { padding: 36px 16px 60px; }
+    nav.top .in { padding: 12px 16px; }
+    .stat-value { font-size: 21px; }
+    .stat { padding: 13px; }
+    th, td { padding: 8px 9px; font-size: 13px; }
+    .g-row, .g-axis { grid-template-columns: 96px 1fr; }
+  }
+  @media print { .tip, nav.top { display: none; } }
+</style>
+</head>
+<body>
+<nav class="top" aria-label="섹션 이동"><div class="in">
+  <a class="back" href="/planning/">← 기획 목록</a>
+  <a href="#s-summary">요약</a><a href="#s-trend">01 추이</a><a href="#s-country">02 국가</a><a href="#s-timeline">03 일정</a><a href="#s-factors">04 요인</a><a href="#s-history">05 과거</a><a href="#s-outlook">06 전망</a>
+</div></nav>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">모바일 게임 시장 분석 · 매출 순위</p>
+  <h1>승리의 여신: 니케 4주년 업데이트 매출 순위 급등 원인 분석</h1>
+  <p class="meta">순위 데이터: 모바일인덱스 기준 보도 및 직접 관측</p>
+  <p class="lede">국내 구글플레이 매출 35위권이던 니케는 10/29 4주년 업데이트 직후 이틀 만에 상위권(6위)으로 올라섰으며, 한정 픽업 2종의 연속 배치, 대규모 무료 배포, 4년 서사의 완결이 동시에 작동한 결과로 판단한다.</p>
+</header>
+
+<!-- 0. 요약 & 활용 -->
+<section class="exec" id="s-summary" aria-label="요약과 활용 방안" style="margin-top:0">
+  <div class="exec-sum card">
+    <h2 style="margin-bottom:12px"><span class="no">summary</span>요약</h2>
+    <ol class="exec-list">
+      <li><b>무슨 일이</b> 10/29~30 이틀 만에 국내 구글플레이 35위권 → 6위, 11/5 현재 5위. 한국 앱스토어 1위(10/29), 일본 구글 1위(11/2).</li>
+      <li><b>왜</b> 4주년 업데이트의 세 층위가 동시에 작동: ① 한정 픽업 2종·코스튬·패스(직접 매출) ② 무료 모집 최대 230회·14일 접속 보상(복귀·리텐션) ③ 4년 '퀸' 서사 완결·결혼 이벤트(몰입).</li>
+      <li><b>앞으로</b> 마리안: 퀸 → 홍련: 신살 연속 픽업으로 11/5 이후에도 상위권 유지 가능성 <span class="tag">추정</span>. 11/19(마리안 픽업 종료)가 첫 분기점.</li>
+    </ol>
+  </div>
+  <h3 class="exec-h">이 보고서로 할 수 있는 일</h3>
+  <div class="uses">
+    <div class="use">
+      <p class="use-role">사업</p>
+      <p class="use-do"><b>경쟁 일정 판단</b></p>
+      <p>니케는 대형 업데이트마다 상위권으로 반등하는 '업데이트 의존형' 패턴(3.5주년·여름·콜라보)이다. 11/26까지 픽업이 이어지므로, 서브컬처 장르 신작·대형 업데이트를 이 기간에 맞붙일지 판단하는 근거로 쓴다.</p>
+    </div>
+    <div class="use">
+      <p class="use-role">마케팅</p>
+      <p class="use-do"><b>기념일 캠페인 설계 참고</b></p>
+      <p>대규모 무료 모집·무료 캐릭터·14일 접속 보상으로 복귀 유저를 모으고, 그다음 한정 픽업으로 과금을 유도하는 순서를 자사 주년·복귀 캠페인의 기준 사례로 삼는다.</p>
+    </div>
+    <div class="use">
+      <p class="use-role">기획</p>
+      <p class="use-do"><b>픽업·콘텐츠 구조 벤치마크</b></p>
+      <p>① 한정 픽업 두 개를 1주 간격으로 겹쳐 배치하는 구조 ② 픽업 캐릭터·메인 서사 완결·웨딩 코스튬을 한 인물(마리안)에 집중시키는 설계를 라이브 업데이트 기획에 참고한다.</p>
+    </div>
+    <div class="use">
+      <p class="use-role">공통</p>
+      <p class="use-do"><b>체크포인트 추적</b></p>
+      <p>11/5 홍련 픽업 이후 순위, 11/19·11/26 픽업 종료 후 하락 폭을 확인해 '연속 픽업이 반등 지속 기간을 늘린다'는 가설을 검증한다. 맞으면 위 활용안의 근거가 강해진다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 요약 카드 -->
+<section aria-label="핵심 지표 요약" style="margin-top:0">
+  <div class="stats">
+    <div class="stat">
+      <p class="stat-label">국내 구글플레이 매출 순위</p>
+      <p class="stat-value num"><span class="muted" style="font-weight:600">35</span><span class="arrow">→</span><span class="hi">5</span>위</p>
+      <p class="stat-note">업데이트 전 → 11/5 (직접 관측)</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">한국 앱스토어 매출</p>
+      <p class="stat-value num"><span class="hi">1</span>위</p>
+      <p class="stat-note">10/29 업데이트 당일, 10/30에도 유지</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">일본 구글플레이 매출</p>
+      <p class="stat-value num"><span class="hi">1</span>위</p>
+      <p class="stat-note">11/2 (10/30에는 4위)</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">무료 모집</p>
+      <p class="stat-value num">최대 <span class="hi">230</span>회</p>
+      <p class="stat-note">+ 각 픽업 매일 1회 무료</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 순위 추이 차트 -->
+<section id="s-trend">
+  <h2><span class="no">01</span>국내 구글플레이 매출 순위 추이</h2>
+  <p class="sub">급등은 10/29~30 이틀에 집중됐고, 이후 3~6위 범위에서 유지되고 있다.</p>
+  <div class="card">
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw-dot"></i>확인된 순위</span>
+      <span><i class="sw-range"></i>매체별 보도 범위</span>
+      <span><i class="sw-line"></i>관측 사이 구간(보간, 일별 데이터 미확인)</span>
+      <span><i class="sw-ref"></i>주요 이벤트</span>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart" id="rankChart" role="img" aria-label="국내 구글플레이 매출 순위: 10월 29일 이전 35위 수준, 10월 30일 6위, 11월 2일 3~5위, 11월 5일 5위. Y축은 1위가 위쪽."></div>
+      <div class="tip" id="tip"></div>
+    </div>
+    <details>
+      <summary>표로 보기</summary>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th>날짜</th><th class="r">한국 구글플레이</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>10/29 이전</td><td class="r rank">35위 수준</td><td>직접 관측</td></tr>
+          <tr><td>10/29</td><td class="r muted">미확인</td><td>업데이트 당일. 한국 앱스토어 1위</td></tr>
+          <tr><td>10/30</td><td class="r rank">6위</td><td>모바일인덱스 기준 보도 (테크M)</td></tr>
+          <tr><td>11/2</td><td class="r rank">3~5위</td><td>매체마다 다름 (ZDNet Korea, 게임포커스)</td></tr>
+          <tr><td>11/5</td><td class="r rank top">5위</td><td>직접 관측. 홍련: 신살 픽업 시작일</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 4. 국가별 순위 표 -->
+<section id="s-country">
+  <h2><span class="no">02</span>국가별 매출 순위 (10/30 기준)</h2>
+  <p class="sub">한국·대만은 앱스토어 1위, 일본은 양대 마켓 4위. 미국은 상대적으로 반응이 약했다.</p>
+  <div class="card" style="padding:0; overflow:hidden">
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>국가</th><th class="r">구글플레이</th><th class="r">앱스토어</th><th>이후 변화</th></tr></thead>
+      <tbody>
+        <tr><td>한국</td><td class="r rank">6위</td><td class="r rank top">1위</td><td>11/2 구글 3~5위 · 11/5 구글 5위</td></tr>
+        <tr><td>일본</td><td class="r rank">4위</td><td class="r rank">4위</td><td>11/2 구글 <b class="rank top">1위</b></td></tr>
+        <tr><td>대만</td><td class="r rank">6위</td><td class="r rank top">1위</td><td class="muted">미확인</td></tr>
+        <tr><td>미국</td><td class="r rank">40위</td><td class="r rank">19위</td><td class="muted">미확인</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:10px; font-size:12.5px">10/29 당일: 한국 앱스토어 1위, 일본 2위, 대만 2위 (출처: 테크M, 엑스포츠뉴스).</p>
+</section>
+
+<!-- 5. 타임라인 -->
+<section id="s-timeline">
+  <h2><span class="no">03</span>4주년 업데이트 타임라인 (10/29 ~ 11/30)</h2>
+  <p class="sub">한정 픽업 두 개와 신규 코스튬이 1주 간격으로 겹치도록 배치되어, 약 4주간 과금 동기가 끊기지 않는 구조다. 기간은 공식 보도자료 기준(KST, 종료일은 당일 04:59:59).</p>
+  <div class="card">
+    <div class="legend" aria-hidden="true">
+      <span><i style="width:18px;height:10px;border-radius:3px;background:var(--accent)"></i>한정 픽업</span>
+      <span><i style="width:18px;height:10px;border-radius:3px;background:var(--accent-soft);border:1px solid var(--accent)"></i>코스튬·패스·이벤트</span>
+    </div>
+    <div class="gantt" id="gantt"></div>
+  </div>
+</section>
+
+<!-- 6. 급등 요인 분석 -->
+<section id="s-factors">
+  <h2><span class="no">04</span>급등 요인 분석: 세 층위</h2>
+  <p class="sub">각 요소의 기여도는 공개 수치가 없어 정성적으로 평가한다. 세 층위는 서로를 증폭하는 관계로 본다.</p>
+  <div class="layers">
+    <article class="layer primary">
+      <h3>① 직접 매출</h3>
+      <p class="role">과금이 실제로 일어나는 지점</p>
+      <ul>
+        <li><b>한정 픽업 2종, 시차 배치</b><br>마리안: 퀸(SSR 화력형, 10/29~11/19) → 홍련: 신살(11/5~11/26)</li>
+        <li>마리안: 퀸은 4주년 기념 필그림으로 성능 평가가 높아 공략 매체가 확보를 권장</li>
+        <li>홍련: 신살은 출시 전부터 "자원을 모아두라"는 권장이 나올 만큼 기대가 큼</li>
+        <li><b>신규 코스튬 4종도 시차 배치</b>: 라크리모사(10/29~11/19), 라스트 어펙션(11/5~11/26, 홍련 픽업과 동시 시작). 기존 한정 코스튬 6종 재판매(~11/19)</li>
+        <li><b>패스</b>: 다크 몽크 패스(나유타 '삼독'), 11월 미션 패스(네온 '디어 그레이스')</li>
+      </ul>
+      <p class="why"><b>판단</b> 순위 급등의 직접 동력. 성능형 한정 캐릭터는 확보 압력이 강하고, 코스튬·패스는 가챠와 별개의 과금 경로를 만든다.</p>
+    </article>
+    <article class="layer">
+      <h3>② 유입과 리텐션</h3>
+      <p class="role">과금할 수 있는 활성 유저 풀을 키움</p>
+      <ul>
+        <li>최대 <b class="num">230</b>회 무료 모집</li>
+        <li>각 픽업 매일 <b class="num">1</b>회 무료 모집</li>
+        <li>라푼젤: 생츄어리 무료 지급</li>
+        <li>4주년 배포 니케 선택 상자</li>
+        <li><b class="num">14</b>일 누적 접속 보상</li>
+      </ul>
+      <p class="why"><b>판단</b> 복귀 유저를 끌어오고 최소 2주간 접속을 유지시킨다. 무료 재화로 픽업에 근접한 유저가 추가 과금으로 전환되는 경로를 만든다.</p>
+    </article>
+    <article class="layer">
+      <h3>③ 몰입</h3>
+      <p class="role">과금 의향을 높이는 감정적 동기</p>
+      <ul>
+        <li>메인 스토리 49·50챕터 '제3차 지상 탈환전': 2022년 론칭부터 이어진 '퀸' 서사의 완결</li>
+        <li>풀보이스 스토리 이벤트 'MARIA-n': 마리안과 지휘관의 결혼 스토리, 멀티 엔딩 텍스트 어드벤처</li>
+        <li>마리안 웨딩 코스튬 '라스트 어펙션'과 서사 연결</li>
+      </ul>
+      <p class="why"><b>판단</b> 픽업 캐릭터(마리안: 퀸)와 서사 완결, 결혼 이벤트, 웨딩 코스튬이 한 인물에 집중되어 있어 캐릭터 애착이 곧 과금 동기로 이어진다.</p>
+    </article>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <p style="margin:0; font-size:14px"><b>보조 요소</b> <span class="muted">(순위 급등과의 직접 연관은 약함)</span></p>
+    <p style="margin:6px 0 0; font-size:13.5px; color:var(--text-2)">시스템: 싱크로 부스트(육성 지원), 디오라마 로비, 챔피언 아레나, 트라이브 타워 조정, 로스트 섹터 업데이트. 싱크로 부스트는 복귀·신규 유저의 육성 부담을 줄여 ② 층위를 보조한다. 오프라인·마케팅: AGF 2026 참가(12월 킨텍스), 2027년 3월 오케스트라 콘서트 예고는 중장기 IP 관심 유지용으로 본다.</p>
+    <div class="flow" aria-label="층위 간 연결">
+      <span class="step">② 무료 배포로 유저 복귀</span><span class="arr">→</span>
+      <span class="step">③ 서사 완결로 몰입</span><span class="arr">→</span>
+      <span class="step">① 한정 픽업·코스튬 과금</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 과거 패턴 -->
+<section id="s-history">
+  <h2><span class="no">05</span>과거 패턴 비교</h2>
+  <p class="sub">대형 업데이트마다 하위권에서 상위권으로 반등하는 패턴이 반복되어 왔으며, 4주년도 같은 궤적이다.</p>
+  <div class="card" style="padding:0; overflow:hidden">
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>업데이트</th><th>시기</th><th class="r">한국 앱스토어</th><th class="r">한국 구글플레이</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>3.5주년</td><td>4월</td><td class="r rank top">1위</td><td class="r rank top">1위</td><td>구글 1위까지 반등</td></tr>
+        <tr><td>여름 업데이트</td><td>7월</td><td class="r rank top">1위</td><td class="r muted">미확인</td><td>앱스토어 1위 재진입</td></tr>
+        <tr><td>니어: 오토마타 콜라보</td><td class="muted">미확인</td><td class="r muted">미확인</td><td class="r muted">미확인</td><td>매출 급상승 보도</td></tr>
+        <tr style="background:var(--accent-soft)"><td><b>4주년</b></td><td>10/29</td><td class="r rank top">1위</td><td class="r rank">6위 → 3~5위</td><td>10/30 → 11/2, 11/5 5위</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:12px; font-size:13.5px">시사: 업데이트 사이 구간에서는 순위가 하위권으로 내려가고, 대형 업데이트가 반등을 만드는 '업데이트 의존형' 매출 곡선이다. 4주년은 구글플레이 기준으로 아직 3.5주년의 1위 기록에는 이르지 못했으나, 두 번째 픽업(홍련: 신살)이 남아 있다는 점이 다르다.</p>
+</section>
+
+<!-- 8. 시사점과 전망 -->
+<section id="s-outlook">
+  <h2><span class="no">06</span>시사점과 전망</h2>
+  <div class="imp">
+    <div class="card">
+      <h3>연속 픽업 구조의 효과 <span class="tag fact">분석</span></h3>
+      <ul>
+        <li>첫 픽업이 끝나기 전에 두 번째 픽업을 겹쳐 열어(11/5~11/19 중첩), 업데이트 직후 반등이 1~2주 안에 꺼지는 일반적인 패턴을 늦추는 설계다.</li>
+        <li>사전에 "자원을 모아두라"는 권장이 퍼진 상태라, 첫 픽업에서 무료 재화로 버틴 유저도 두 번째 픽업에서 과금으로 전환될 여지가 있다.</li>
+        <li>무료 모집·접속 보상이 활성 유저를 붙잡아 두는 기간(14일)이 두 픽업의 중첩 구간과 겹친다.</li>
+      </ul>
+    </div>
+    <div class="card callout-est">
+      <h3>전망 <span class="tag">추정</span></h3>
+      <p style="color:var(--text-2)">마리안: 퀸 → 홍련: 신살로 픽업이 이어지는 구조 때문에, <b style="color:var(--text)">11/5 이후에도 상위권이 유지될 가능성이 있다.</b> 다만 11/19에는 마리안 픽업·라크리모사·다크 몽크 패스·코스튬 재판매·MARIA-n·14일 접속 이벤트가 한꺼번에 끝나, 이 시점이 첫 하락 분기점이 될 수 있다.</p>
+      <h3 style="margin-top:16px">앞으로 볼 지표</h3>
+      <ul>
+        <li>홍련: 신살 픽업(11/5~) 이후 국내 구글플레이 순위가 5위 이내로 유지·상승하는지</li>
+        <li>11/19 마리안: 퀸 픽업·재판매 종료 후 하락 폭</li>
+        <li>11/26 홍련 픽업 종료 후 하위권 복귀 속도 (과거 패턴과 비교)</li>
+        <li>일본 구글 1위(11/2) 유지 여부</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. 참고 -->
+<section>
+  <p class="note"><b>참고</b> PC 런처 해킹 사태(11/3 공개)로 PC 유저가 모바일로 옮겨 와 순위가 바뀐 것인지도 확인했으나, 순위 상승이 사태가 알려지기 전인 10/29~30에 이미 일어나 관련이 없는 것으로 판단했다.</p>
+</section>
+
+<!-- 10. 출처 -->
+<section class="sources">
+  <h2><span class="no">src</span>출처</h2>
+  <ol>
+    <li>테크M (10/30) <a href="https://www.techm.kr/news/articleView.html?idxno=156705" target="_blank" rel="noopener">techm.kr/news/articleView.html?idxno=156705</a></li>
+    <li>ZDNet Korea (11/2) <a href="https://zdnet.co.kr/view/?no=20261102094333" target="_blank" rel="noopener">zdnet.co.kr/view/?no=20261102094333</a></li>
+    <li>게임포커스 (11/2) <a href="https://gamefocus.co.kr/detail.php?number=180225" target="_blank" rel="noopener">gamefocus.co.kr/detail.php?number=180225</a></li>
+    <li>엑스포츠뉴스 (10/29) <a href="https://www.xportsnews.com/article/2212863" target="_blank" rel="noopener">xportsnews.com/article/2212863</a></li>
+    <li>게임메카 (10/29) <a href="https://www.gamemeca.com/en/view.php?gid=1782587" target="_blank" rel="noopener">gamemeca.com/en/view.php?gid=1782587</a></li>
+    <li>Game*Spark / PR TIMES (10/29, 일본 공식 보도자료 · 타임라인 기간 출처) <a href="https://www.gamespark.jp/release/prtimes/20261029/324572.html" target="_blank" rel="noopener">gamespark.jp/release/prtimes/20261029/324572.html</a></li>
+    <li>게임메카 (10/25) <a href="https://www.gamemeca.com/en/view.php?gid=1782333" target="_blank" rel="noopener">gamemeca.com/en/view.php?gid=1782333</a></li>
+    <li>청년일보 (3.5주년) <a href="https://www.youthdaily.co.kr/mobile/article.html?no=219253" target="_blank" rel="noopener">youthdaily.co.kr/mobile/article.html?no=219253</a></li>
+    <li>뉴스1 (해킹, 참고용) <a href="https://www.news1.kr/it-science/game-review/6342883" target="_blank" rel="noopener">news1.kr/it-science/game-review/6342883</a></li>
+  </ol>
+  <p class="note" style="margin-top:14px">순위는 모바일인덱스 기준 보도와 직접 관측을 종합했다. 매출액·다운로드 수는 공개 자료가 없어 다루지 않았다.</p>
+</section>
+
+<footer>서현석 · 유한대학교 게임콘텐츠전공 · <a href="/planning/">기획 목록으로</a></footer>
+</div>
+
+<script>
+(function () {
+  /* ---------- 순위 추이 차트 ---------- */
+  // 날짜: 10/27 = day 0
+  const D = (m, d) => (m === 10 ? d - 27 : d + 31 - 27);
+  const pts = [
+    { x: D(10,28), y: 35, label: '10/29 이전', val: '35위 수준', src: '직접 관측' },
+    { x: D(10,30), y: 6,  label: '10/30', val: '6위', src: '테크M (모바일인덱스)' },
+    { x: D(11,2),  y: 4, lo: 3, hi: 5, label: '11/2', val: '3~5위', src: '매체마다 다름 (ZDNet, 게임포커스)' },
+    { x: D(11,5),  y: 5,  label: '11/5', val: '5위', src: '직접 관측' }
+  ];
+  const refs = [
+    { x: D(10,29), text: '10/29 4주년 업데이트' },
+    { x: D(11,5),  text: '11/5 홍련: 신살 픽업' }
+  ];
+  const xMin = D(10,27), xMax = D(11,7);
+  const yMin = 1, yMax = 40;
+  const host = document.getElementById('rankChart');
+  const tip = document.getElementById('tip');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+  const dateLbl = x => { const t = x + 27; return t <= 31 ? '10/' + t : '11/' + (t - 31); };
+
+  function draw() {
+    const W = host.clientWidth, narrow = W < 520;
+    const H = narrow ? 280 : 320;
+    const m = { t: 48, r: narrow ? 12 : 24, b: 30, l: 40 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const sx = x => m.l + (x - xMin) / (xMax - xMin) * iw;
+    const sy = y => m.t + (y - yMin) / (yMax - yMin) * ih; // 반전: 1위가 위
+    host.innerHTML = '';
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H }, host);
+
+    // 그리드 & Y축
+    [1, 5, 10, 20, 30, 40].forEach(v => {
+      el('line', { x1: m.l, x2: W - m.r, y1: sy(v), y2: sy(v), stroke: 'var(--grid)', 'stroke-width': 1 }, svg);
+      const t = el('text', { x: m.l - 8, y: sy(v) + 4, 'text-anchor': 'end' }, svg); t.textContent = v + '위';
+    });
+    // 상위 10위 영역
+    el('rect', { x: m.l, y: sy(1), width: iw, height: sy(10) - sy(1), fill: 'var(--accent-soft)', opacity: .45 }, svg);
+    const tz = el('text', { x: m.l + 4, y: sy(10) - 6, 'text-anchor': 'start', style: 'font-size:11px;fill:var(--text-3)' }, svg); tz.textContent = 'TOP 10';
+
+    // X축
+    const step = narrow ? 2 : 1;
+    for (let x = xMin; x <= xMax; x += step) {
+      const t = el('text', { x: sx(x), y: H - 8, 'text-anchor': 'middle', style: 'font-size:11px' }, svg); t.textContent = dateLbl(x);
+    }
+
+    // 기준선
+    refs.forEach((r, i) => {
+      el('line', { x1: sx(r.x), x2: sx(r.x), y1: i === 0 ? m.t - 26 : m.t - 10, y2: m.t + ih, stroke: 'var(--text-3)', 'stroke-width': 1 }, svg);
+      const anchor = i === refs.length - 1 && narrow ? 'end' : 'start';
+      const dx = anchor === 'end' ? -4 : 4;
+      const t = el('text', { x: sx(r.x) + dx, y: i === 0 ? m.t - 30 : m.t - 14, 'text-anchor': anchor, style: 'font-size:11px;fill:var(--text-2)' }, svg);
+      t.textContent = r.text;
+    });
+
+    // 보간 구간(점선) — 관측 사이 일별 데이터 없음
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + sx(p.x) + ' ' + sy(p.y)).join(' ');
+    el('path', { d, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-dasharray': '5 4', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+
+    // 범위(11/2)
+    pts.filter(p => p.lo).forEach(p => {
+      el('line', { x1: sx(p.x), x2: sx(p.x), y1: sy(p.lo), y2: sy(p.hi), stroke: 'var(--accent)', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: .4 }, svg);
+    });
+
+    // 점 + 직접 라벨
+    pts.forEach((p, i) => {
+      const cx = sx(p.x), cy = sy(p.y);
+      el('circle', { cx, cy, r: p.lo ? 4.5 : 5, fill: p.lo ? 'var(--surface)' : 'var(--accent)', stroke: p.lo ? 'var(--accent)' : 'var(--surface)', 'stroke-width': 2 }, svg);
+      const below = p.y < 10;
+      const lbl = el('text', { x: cx + (i === 0 ? 10 : 0), y: i === 0 ? cy + 4 : (below ? cy + 22 : cy - 12), 'text-anchor': i === 0 ? 'start' : 'middle', style: 'font-size:12px;font-weight:600;fill:var(--text)' }, svg);
+      lbl.textContent = p.val;
+      // 히트 영역
+      const hit = el('circle', { cx, cy, r: 18, fill: 'transparent', style: 'cursor:pointer' }, svg);
+      const show = () => {
+        tip.innerHTML = `<div class="t-src">${p.label}</div><b>한국 구글플레이 ${p.val}</b><div class="t-src">${p.src}</div>`;
+        tip.style.opacity = 1;
+        const tw = tip.offsetWidth;
+        let left = cx - tw / 2; left = Math.max(0, Math.min(W - tw, left));
+        tip.style.left = left + 'px';
+        tip.style.top = (cy + (below ? 28 : -70)) + 'px';
+      };
+      hit.addEventListener('mouseenter', show);
+      hit.addEventListener('focus', show);
+      hit.addEventListener('touchstart', show, { passive: true });
+      hit.addEventListener('mouseleave', () => tip.style.opacity = 0);
+    });
+
+    // 10/29 당일 구글 순위 미확인 표기
+    const um = el('text', { x: sx(D(10,29)) + 4, y: sy(22), style: 'font-size:11px;fill:var(--text-3)' }, svg);
+    um.textContent = '10/29 구글 순위 미확인';
+  }
+  draw();
+  let rt, lastW = host.clientWidth; new ResizeObserver(() => { if (host.clientWidth === lastW) return; lastW = host.clientWidth; clearTimeout(rt); rt = setTimeout(draw, 60); }).observe(host);
+
+  /* ---------- 간트 ---------- */
+  // 범위: 10/29 ~ 11/30
+  const g0 = D(10,29), g1 = D(11,30) + 1;
+  const pct = x => ((x - g0) / (g1 - g0) * 100).toFixed(3) + '%';
+  // 시각 반영: 10/29 점검 종료(07:00) 후 시작, 종료는 해당일 04:59:59 (KST)
+  const AM7 = 7 / 24, AM5 = 5 / 24;
+  const rows = [
+    { name: '마리안: 퀸 한정 픽업', note: '10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'pick' },
+    { name: '홍련: 신살 한정 픽업', note: '11/5 05:00 ~ 11/26 04:59', s: D(11,5) + AM5, e: D(11,26) + AM5, kind: 'pick' },
+    { name: "스노우 화이트 '라크리모사'", note: '코스튬 뽑기 · 10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'soft' },
+    { name: "마리안 '라스트 어펙션'", note: '코스튬 뽑기 · 11/5 점검 후 ~ 11/26 04:59', s: D(11,5) + AM5, e: D(11,26) + AM5, kind: 'soft' },
+    { name: "다크 몽크 패스 (나유타 '삼독')", note: '10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'soft' },
+    { name: "11월 미션 패스 (네온 '디어 그레이스')", note: '11/1 점검 후 ~ 11/30 04:59', s: D(11,1) + AM5, e: D(11,30) + AM5, kind: 'soft' },
+    { name: '기존 한정 코스튬 6종 재판매', note: '10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'soft' },
+    { name: "스토리 이벤트 'MARIA-n'", note: '10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'soft' },
+    { name: "14일 누적 접속 'TO THE ENDPOINT'", note: '10/29 점검 후 ~ 11/19 04:59', s: D(10,29) + AM7, e: D(11,19) + AM5, kind: 'soft' }
+  ];
+  const gantt = document.getElementById('gantt');
+  let html = '<div class="g-body">';
+  rows.forEach(r => {
+    let bar;
+    if (r.kind === 'mark') bar = `<div class="g-mark" style="left:${pct(r.s)}" title="${r.note}"></div>`;
+    else bar = `<div class="g-bar ${r.kind === 'pick' ? '' : r.kind}" style="left:${pct(r.s)};width:calc(${pct(r.e)} - ${pct(r.s)})" title="${r.name}: ${r.note}"></div>`;
+    html += `<div class="g-row"><div class="g-label">${r.name}<small>${r.note}</small></div><div class="g-track">${bar}</div></div>`;
+  });
+  html += '</div>';
+  const ticks = [D(10,29), D(11,5), D(11,12), D(11,19), D(11,26)];
+  html += '<div class="g-axis"><div></div><div class="g-ticks">' + ticks.map(t => `<span style="left:${pct(t)}">${dateLbl(t)}</span>`).join('') + '</div></div>';
+  gantt.innerHTML = html;
+
+  // 오늘(11/5) 기준선: 라벨 열 너비를 반영해 트랙 위에 오버레이
+  const body = gantt.querySelector('.g-body');
+  const firstTrack = gantt.querySelector('.g-track');
+  function placeToday() {
+    const old = body.querySelector('.g-overlay'); if (old) old.remove();
+    const left = firstTrack.offsetLeft;
+    const ov = document.createElement('div');
+    ov.className = 'g-overlay';
+    ov.style.left = left + 'px';
+    ov.innerHTML = `<div class="g-today" style="left:${pct(D(11,5))}"></div><div class="g-today-lbl" style="left:${pct(D(11,5))};top:0">오늘 11/5</div>`;
+    body.appendChild(ov);
+  }
+  placeToday();
+  new ResizeObserver(placeToday).observe(gantt);
+})();
+</script>
+</body>
+</html>
