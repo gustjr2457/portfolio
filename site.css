@@ -1,0 +1,292 @@
+:root{
+  color-scheme:dark;
+
+  /* 앰버 CRT 모니터에서 색을 가져왔다.
+     다크 테마의 기본값은 파랑이나 보라 계열인데, 그쪽으로 가면 어디서 본 화면이 된다.
+     앰버는 검은 배경 위에서 눈이 덜 피로하고, 이 페이지에서 유일한 색이라
+     '여기를 보라'는 표시로 쓸 수 있다. */
+  --bg:#0d0d0d;
+  --bg-2:#141414;
+  --bg-3:#1b1a18;
+  --line:#2b2926;
+  --line-2:#3a3733;
+
+  --fg:#dcd7cf;
+  --fg-2:#aaa49b;
+  --muted:#8a8479;
+
+  --amber:#ffb454;
+  --amber-2:#c98a2e;
+
+  --mono:"JetBrains Mono","D2Coding",Consolas,"Courier New",monospace;
+  --sans:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.8;
+  letter-spacing:-.002em;
+  word-break:keep-all;
+}
+::selection{background:var(--amber);color:#0d0d0d}
+
+.page{max-width:760px;margin:0 auto;padding:0 24px 100px}
+
+a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-2);padding-bottom:1px}
+a:hover{background:var(--amber);color:#0d0d0d;border-color:var(--amber)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--amber);color:#0d0d0d;padding:10px 16px;z-index:9;border:0}
+.skip:focus{left:0}
+
+/* ── 프롬프트 · 머리말 ── */
+header.doc{padding:56px 0 34px;border-bottom:1px solid var(--line)}
+.prompt{
+  font-family:var(--mono);font-size:.85rem;color:var(--muted);
+  margin:0 0 20px;letter-spacing:0;
+}
+.prompt i{color:var(--amber-2);font-style:normal;margin-right:.5em}
+
+.name{
+  font-family:var(--sans);font-weight:800;
+  font-size:clamp(2.1rem,6.5vw,2.9rem);
+  line-height:1.15;letter-spacing:-.035em;
+  margin:0;color:var(--fg);
+}
+.cursor{
+  display:inline-block;width:.5em;height:.95em;background:var(--amber);
+  vertical-align:-.08em;margin-left:.18em;animation:blink 1.15s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}}
+
+.role-en{
+  font-family:var(--mono);font-size:.8rem;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--amber);margin:12px 0 0;
+}
+.tagline{
+  font-family:var(--mono);font-size:.92rem;line-height:1.75;
+  color:var(--fg-2);margin:22px 0 0;
+}
+.tagline::before{content:"> ";color:var(--amber-2)}
+.tagline .sub{
+  display:block;font-family:var(--sans);font-size:.95rem;
+  color:var(--muted);margin-top:5px;padding-left:1.1em;
+}
+
+.meta{
+  font-family:var(--mono);font-size:.82rem;line-height:2.1;
+  margin:26px 0 0;color:var(--fg-2);
+  display:grid;grid-template-columns:max-content 1fr;gap:0 20px;
+}
+.meta dt{color:var(--muted)}
+.meta dd{margin:0}
+
+nav.toc{margin-top:26px;font-family:var(--mono);font-size:.82rem;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc a{color:var(--muted);border:0;padding:0}
+nav.toc a::before{content:"[";color:var(--line-2)}
+nav.toc a::after{content:"]";color:var(--line-2)}
+nav.toc a:hover{background:none;color:var(--amber)}
+nav.toc a:hover::before,nav.toc a:hover::after{color:var(--amber)}
+
+/* ── 섹션 ── */
+section{margin-top:66px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sec-head::after{content:"";flex:1;height:1px;background:var(--line)}
+h2{
+  font-family:var(--mono);font-weight:700;font-size:1rem;
+  color:var(--amber);margin:0;letter-spacing:.01em;flex:none;
+}
+h2 .ko{font-family:var(--sans);font-weight:600;color:var(--fg);margin-left:11px;font-size:.95rem}
+.sec-note{font-size:.86rem;color:var(--muted);margin:0 0 24px}
+
+/* ── 이력 항목 ── */
+.entry{display:grid;grid-template-columns:150px 1fr;gap:0 22px;padding:22px 0;border-bottom:1px solid var(--line)}
+.entry:last-of-type{border-bottom:0}
+.entry .when{font-family:var(--mono);font-size:.79rem;line-height:1.7;color:var(--muted);padding-top:6px}
+.entry .when b{display:block;color:var(--amber-2);font-weight:500}
+.entry h3{font-family:var(--sans);font-weight:700;font-size:1.05rem;margin:0 0 2px;letter-spacing:-.015em}
+.entry .role{font-family:var(--mono);font-size:.8rem;color:var(--fg-2);margin:0 0 12px}
+.entry ul{margin:0;padding-left:1.1em;color:var(--fg-2);font-size:.95rem}
+.entry li{margin-bottom:6px}
+.entry li::marker{content:"– ";color:var(--line-2)}
+.entry li b{color:var(--fg);font-weight:600}
+.entry h4{
+  font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.08em;
+  color:var(--muted);margin:18px 0 8px;text-transform:uppercase;
+}
+
+/* ── 대표 사례 ── */
+.case{border:1px solid var(--line);background:var(--bg-2);padding:26px 26px 28px}
+.case h3{font-family:var(--sans);font-weight:700;font-size:1.2rem;margin:0 0 6px;letter-spacing:-.02em}
+.case .where{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:0 0 24px;line-height:1.8}
+.case h4{
+  font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.11em;
+  color:var(--amber);margin:24px 0 9px;text-transform:uppercase;
+}
+.case h4:first-of-type{margin-top:0}
+.case p{margin:0 0 11px;color:var(--fg-2);font-size:.95rem}
+.case p:last-child{margin-bottom:0}
+.case b{color:var(--fg);font-weight:600}
+
+.codeblock{margin:14px 0 6px;border:1px solid var(--line)}
+.codebar{
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  background:var(--bg-3);padding:6px 13px;border-bottom:1px solid var(--line);
+  letter-spacing:.04em;
+}
+.codeblock pre{
+  margin:0;padding:15px 16px;overflow-x:auto;background:var(--bg);
+  font-family:var(--mono);font-size:.83rem;line-height:1.75;color:var(--fg);
+}
+.codeblock pre .kw{color:var(--amber)}
+.codeblock pre .fn{color:#9fc5a0}
+.caption{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0}
+
+.results{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);margin-top:12px}
+.results div{padding:18px 20px 16px}
+.results div:first-child{border-right:1px solid var(--line)}
+.results b{
+  display:block;font-family:var(--mono);font-weight:700;
+  font-size:1.6rem;line-height:1.2;color:var(--amber);letter-spacing:-.01em;
+}
+.results span{display:block;font-size:.8rem;color:var(--muted);margin-top:7px;font-family:var(--sans)}
+
+/* ── 프로젝트 ── */
+.proj{padding:26px 0;border-bottom:1px solid var(--line)}
+.proj:last-of-type{border-bottom:0}
+.proj-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.proj h3{font-family:var(--sans);font-weight:700;font-size:1.15rem;margin:0;letter-spacing:-.02em}
+.proj .period{font-family:var(--mono);font-size:.78rem;color:var(--amber-2);flex:none}
+.proj .kind{
+  display:inline-block;margin:10px 0 15px;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.06em;color:var(--muted);
+}
+.proj .kind::before{content:"["}
+.proj .kind::after{content:"]"}
+.proj dl{margin:0 0 16px;display:grid;grid-template-columns:max-content 1fr;gap:5px 20px;font-size:.88rem}
+.proj dt{font-family:var(--mono);color:var(--muted);font-size:.78rem;padding-top:2px}
+.proj dd{margin:0;color:var(--fg-2)}
+.proj h4{
+  font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.08em;
+  color:var(--muted);margin:0 0 8px;text-transform:uppercase;
+}
+.proj ul{margin:0;padding-left:1.1em;color:var(--fg-2);font-size:.95rem}
+.proj li{margin-bottom:7px}
+.proj li::marker{content:"– ";color:var(--line-2)}
+.proj li b{color:var(--fg);font-weight:600}
+.proj .note{font-size:.86rem;color:var(--muted);margin:12px 0 0}
+
+.stack{display:flex;flex-wrap:wrap;gap:5px}
+.stack span{
+  font-family:var(--mono);font-size:.74rem;color:var(--fg-2);
+  border:1px solid var(--line-2);padding:1px 7px;
+}
+
+/* ── 게임 기획 ── */
+.plan-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin:16px 0 0}
+.plan-stats div{padding:14px 16px 12px;border-right:1px solid var(--line)}
+.plan-stats div:last-child{border-right:0}
+.plan-stats b{display:block;font-family:var(--mono);font-weight:700;font-size:1.25rem;line-height:1.2;color:var(--amber)}
+.plan-stats span{display:block;font-size:.76rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.flow{font-family:var(--mono);font-size:.8rem;color:var(--fg-2);background:var(--bg-2);border:1px solid var(--line);padding:10px 14px;margin:14px 0 0;line-height:1.9}
+.flow i{font-style:normal;color:var(--amber-2);margin:0 .4em}
+
+/* ── 표 ── */
+.table-wrap{overflow-x:auto;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:430px}
+th,td{text-align:left;padding:12px 15px;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{
+  font-family:var(--mono);font-weight:500;color:var(--muted);font-size:.72rem;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--bg-2);
+}
+td:first-child{width:38%;font-family:var(--mono);font-size:.82rem;color:var(--amber-2);padding-right:14px}
+td:last-child{color:var(--fg-2)}
+
+/* ── 맺음 ── */
+.closing{
+  margin-top:66px;padding:20px 22px;
+  background:var(--bg-2);border-left:2px solid var(--amber);
+  font-size:.98rem;line-height:1.8;color:var(--fg-2);
+}
+.closing p{margin:0}
+.closing p + p{margin-top:11px}
+.closing b{color:var(--fg);font-weight:600}
+
+footer{
+  margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:2;
+}
+footer a{color:var(--muted);border-bottom-color:var(--line-2)}
+footer a:hover{background:var(--amber);color:#0d0d0d}
+
+/* ── 좁은 화면 ── */
+@media (max-width:640px){
+  .page{padding:0 18px 76px}
+  header.doc{padding-top:40px}
+  section{margin-top:52px}
+  .entry{grid-template-columns:1fr;gap:0}
+  .entry .when{padding:0 0 9px}
+  .entry .when b{display:inline;margin-right:9px}
+  .case{padding:22px 18px}
+  .results{grid-template-columns:1fr}
+  .plan-stats{grid-template-columns:1fr}
+  .plan-stats div{border-right:0;border-bottom:1px solid var(--line)}
+  .plan-stats div:last-child{border-bottom:0}
+  .results div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .meta{grid-template-columns:1fr;gap:0;line-height:1.9}
+  .meta dt{color:var(--muted);margin-top:8px}
+  .closing{padding:18px}
+}
+
+/* ── 인쇄 ── */
+/* 화면은 어둡지만 종이로 뽑으면 반전시킨다. 검정 배경을 그대로 인쇄할 이유가 없다 */
+@media print{
+  :root{
+    --bg:#fff;--bg-2:#fff;--bg-3:#fff;
+    --line:#c9c9c9;--line-2:#c9c9c9;
+    --fg:#000;--fg-2:#222;--muted:#555;
+    --amber:#000;--amber-2:#444;
+  }
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.6}
+  .page{max-width:none;padding:0}
+  nav.toc,.skip,.cursor{display:none}
+  header.doc{padding-top:0}
+  section{margin-top:24px;page-break-inside:avoid}
+  .entry,.proj,.case{page-break-inside:avoid}
+  .case{border:1px solid #c9c9c9}
+  a{color:#000;border-bottom:0}
+  a:hover{background:none}
+}
+
+/* ── 상단 화면 전환 ── */
+/* 메인(개발)과 기획 두 화면을 오간다. 지금 화면은 앰버로 채워 표시한다 */
+.tabs{
+  position:sticky;top:0;z-index:5;
+  background:rgba(13,13,13,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.tabs-in{
+  max-width:760px;margin:0 auto;padding:0 24px;height:50px;
+  display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;
+}
+.tabs .home{margin-right:auto;color:var(--fg);border:0;padding:0;font-weight:700;letter-spacing:.01em}
+.tabs .home i{font-style:normal;color:var(--amber-2);margin-right:.45em}
+.tabs .home:hover{background:none;color:var(--amber)}
+.tabs .tab{color:var(--fg-2);border:1px solid var(--line-2);padding:3px 12px;line-height:1.6}
+.tabs .tab:hover{background:var(--bg-3);color:var(--amber);border-color:var(--amber-2)}
+.tabs .tab[aria-current="page"]{background:var(--amber);color:#0d0d0d;border-color:var(--amber);font-weight:700}
+[id]{scroll-margin-top:64px}
+@media (max-width:640px){
+  .tabs-in{padding:0 18px;gap:6px}
+  .tabs .tab{padding:3px 9px}
+}
+@media print{.tabs{display:none}}
