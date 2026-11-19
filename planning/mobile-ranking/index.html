@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>어떤 게임을 플레이해야 하는가 — 모바일 매출 순위 분석 · 서현석</title>
+<meta name="description" content="모바일인덱스 매출 순위 4시점(구글·iOS 8개 표, 94종)으로 기획자가 먼저 플레이할 게임 15종을 고르고, 한 달 뒤 실제 순위로 검증한 분석." />
+<meta name="author" content="서현석" />
+<meta name="theme-color" content="#0d0d0d" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0d0d0d;--bg-2:#141414;--bg-3:#1b1a18;
+  --line:#2b2926;--line-2:#3a3733;
+  --fg:#dcd7cf;--fg-2:#aaa49b;--muted:#8a8479;
+  --amber:#ffb454;--amber-2:#c98a2e;
+  --mono:"JetBrains Mono","D2Coding",Consolas,"Courier New",monospace;
+  --sans:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.8;word-break:keep-all}
+::selection{background:var(--amber);color:#0d0d0d}
+.page{max-width:820px;margin:0 auto;padding:0 24px 100px}
+a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-2);padding-bottom:1px}
+a:hover{background:var(--amber);color:#0d0d0d;border-color:var(--amber)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+header.doc{padding:44px 0 30px;border-bottom:1px solid var(--line)}
+.back{font-family:var(--mono);font-size:.8rem;border:0;color:var(--muted)}
+.back:hover{background:none;color:var(--amber)}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:26px 0 8px}
+h1{font-weight:800;font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.25;letter-spacing:-.03em;margin:0}
+.sub{color:var(--fg-2);margin:12px 0 0;font-size:.95rem}
+.meta{font-family:var(--mono);font-size:.8rem;line-height:2;margin:20px 0 0;color:var(--fg-2);display:grid;grid-template-columns:max-content 1fr;gap:0 18px}
+.meta dt{color:var(--muted)}.meta dd{margin:0}
+
+section{margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.sec-head::after{content:"";flex:1;height:1px;background:var(--line)}
+h2{font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--amber);margin:0;flex:none}
+h2 .ko{font-family:var(--sans);font-weight:600;color:var(--fg);margin-left:11px;font-size:.95rem}
+h3{font-size:1.02rem;margin:26px 0 8px;letter-spacing:-.01em}
+p{color:var(--fg-2);margin:0 0 12px;font-size:.96rem}
+b{color:var(--fg);font-weight:600}
+ul{color:var(--fg-2);font-size:.95rem;padding-left:1.1em;margin:0 0 12px}
+li{margin-bottom:6px}
+li::marker{content:"– ";color:var(--line-2)}
+
+.callout{background:var(--bg-2);border-left:2px solid var(--amber);padding:16px 20px;margin:0 0 18px}
+.callout p{margin:0;color:var(--fg)}
+.callout p + p{margin-top:8px;color:var(--fg-2)}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin:18px 0}
+.kpis div{padding:16px 16px 14px;border-right:1px solid var(--line)}
+.kpis div:last-child{border-right:0}
+.kpis b{display:block;font-family:var(--mono);font-size:1.45rem;line-height:1.2;color:var(--amber)}
+.kpis span{display:block;font-size:.78rem;color:var(--muted);margin-top:6px;line-height:1.5}
+
+.formula{font-family:var(--mono);font-size:.84rem;background:var(--bg-2);border:1px solid var(--line);padding:14px 16px;color:var(--fg);overflow-x:auto;margin:0 0 12px}
+.formula .k{color:var(--amber)}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--line);margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:560px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-weight:500;color:var(--muted);font-size:.72rem;letter-spacing:.08em;background:var(--bg-2);white-space:nowrap}
+td{color:var(--fg-2)}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td .tier{font-family:var(--mono);font-size:.75rem;color:var(--amber-2)}
+tr.top td:nth-child(2){color:var(--fg);font-weight:600}
+
+figure{margin:18px 0 20px}
+figure .frame{background:#fff;border:1px solid var(--line);padding:10px;overflow-x:auto}
+figure img{display:block;max-width:100%;height:auto;margin:0 auto}
+figcaption{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.6}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:2}
+footer a{color:var(--muted);border-bottom-color:var(--line-2)}
+
+@media (max-width:640px){
+  .page{padding:0 16px 76px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpis div:nth-child(2){border-right:0}
+  .kpis div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .meta{grid-template-columns:1fr;gap:0}
+  .meta dt{margin-top:6px}
+}
+@media print{
+  :root{--bg:#fff;--bg-2:#fff;--bg-3:#fff;--line:#c9c9c9;--line-2:#c9c9c9;--fg:#000;--fg-2:#222;--muted:#555;--amber:#000;--amber-2:#444}
+  .back{display:none}
+  section{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <a class="back" href="../../#planning">← 포트폴리오로 돌아가기</a>
+  <p class="eyebrow">Game Planning / Market Data</p>
+  <h1>어떤 게임을 플레이해야 하는가</h1>
+  <p class="sub">모바일 매출 순위 4시점으로 기획자가 먼저 해 볼 게임을 고르고, 한 달 뒤 실제 순위로 검증했습니다.</p>
+  <dl class="meta">
+    <dt>data</dt><dd>모바일인덱스 실시간 매출 순위 · 2026-09-03 · 09-17 · 10-01 · 10-29</dd>
+    <dt>scope</dt><dd>구글플레이 · iOS 각 TOP46 → 8개 표, 362행, 94종</dd>
+    <dt>tool</dt><dd>PowerShell 5.1 (반복 계산은 내장 C#) · 그림은 SVG로 직접 생성</dd>
+    <dt>by</dt><dd>서현석 · 단독 분석</dd>
+  </dl>
+</header>
+
+<main>
+
+<section id="summary">
+  <div class="sec-head"><h2>[summary]<span class="ko">요약</span></h2></div>
+  <div class="callout">
+    <p>먼저 플레이할 5종은 <b>① 제우스 ② WOS ③ 리니지M ④ 메이플 키우기 ⑤ 가십하버</b>입니다. 시장의 10개 장르를 모두 경험하는 최소 목록은 14종, 급등 신호 1종을 더해 <b>최종 15종</b>입니다.</p>
+    <p>한 달 전(10/1) 데이터로 만든 점수가 10/29 실제 TOP10 중 9개를 맞혔고, 급등 신호로 골랐던 5종은 전부 내려갔습니다. 그래서 급등작은 ‘지금 바로 보고 넘어가는 목록’으로 따로 다룹니다.</p>
+  </div>
+  <div class="kpis">
+    <div><b>94종</b><span>4시점 · 2개 스토어에서 관측된 게임</span></div>
+    <div><b>9 / 10</b><span>한 달 뒤 TOP10 적중 (백테스트)</span></div>
+    <div><b>90~100%</b><span>상위 5종의 TOP5 확률 (가중치 1만 회)</span></div>
+    <div><b>5 / 5</b><span>이전 급등 신호 게임의 하락</span></div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="sec-head"><h2>[problem]<span class="ko">문제 정의</span></h2></div>
+  <p>기획자로서 시장을 이해하려면 직접 플레이해 봐야 하지만, 매출 순위에 오른 게임만 90종이 넘습니다. 시간은 한정돼 있으니 <b>“무엇을, 어떤 순서로, 어느 스토어에서”</b> 할지 근거를 갖고 정해야 했습니다.</p>
+  <ul>
+    <li>오래, 꾸준히 높은 게임이 우선이다 — 한 번 반짝한 순위는 시장의 구조를 대표하지 못한다.</li>
+    <li>같은 장르만 여러 개 하면 시장을 넓게 보지 못한다 — 장르 폭도 함께 확보한다.</li>
+    <li>갑자기 오른 게임은 그 순간에만 볼 수 있는 설계가 있다 — 따로 표시한다.</li>
+  </ul>
+</section>
+
+<section id="method">
+  <div class="sec-head"><h2>[method]<span class="ko">방법</span></h2></div>
+  <h3>1. 점수 설계</h3>
+  <div class="formula">점수 = <span class="k">0.6</span> × 시장 지위 + <span class="k">0.2</span> × 안정성 + <span class="k">0.2</span> × 스토어 일관성</div>
+  <ul>
+    <li><b>시장 지위</b> — 8개 표의 평균 (47 − 순위). 순위권 밖은 0점.</li>
+    <li><b>안정성</b> — 100 − 6σ (순위 표준편차). 관측 4회 미만은 0점으로 두어 ‘아직 모르는 게임’을 구분.</li>
+    <li><b>스토어 일관성</b> — 100 − 4g (시점별 구글·iOS 순위 격차 평균).</li>
+  </ul>
+  <h3>2. 선정 규칙</h3>
+  <ul>
+    <li><b>1단계</b> — 점수 상위 10종. 단, 한 장르는 2종까지만 넣고 넘치면 다음 순위로 내려 장르 폭을 확보.</li>
+    <li><b>2단계</b> — 1단계에 없는 장르를 채우는 대표작 · 비교쌍.</li>
+    <li><b>3단계</b> — 시점 간 점수 변화의 robust z ≥ 4 (중앙값과 MAD 기준)인 급등 신호.</li>
+    <li><b>스토어</b> — 두 스토어 순위 차가 5계단 이하면 ‘무관’. 5계단은 TOP25 게임 113건의 이동 폭 75백분위에서 정한 노이즈 기준.</li>
+  </ul>
+  <h3>3. 검증</h3>
+  <ul>
+    <li>가중치를 디리클레(1,1,1)로 1만 번 뽑아 순위가 얼마나 흔들리는지 확인 (몬테카를로).</li>
+    <li>점수 변환을 역수 · 로그로 바꿔도 TOP10이 유지되는지 확인.</li>
+    <li>10/1까지의 데이터로 만든 점수가 오지 않았던 10/29를 맞히는지 확인 (백테스트).</li>
+  </ul>
+</section>
+
+<section id="result">
+  <div class="sec-head"><h2>[result]<span class="ko">결과</span></h2></div>
+
+  <figure>
+    <div class="frame"><img src="figs/fig3.svg" alt="플레이 우선순위 점수 상위 15종을 시장 지위, 안정성, 스토어 일관성으로 나눈 막대그래프. 제우스 95.8, WOS 90.5, 리니지M 90.2 순." loading="lazy" /></div>
+    <figcaption>그림 1. 점수 상위 15종 (구성 요소별). 진한 막대 = 시장 지위, 중간 = 안정성, 연한 = 스토어 일관성.</figcaption>
+  </figure>
+
+  <h3>권장 플레이 목록 (10/29 기준)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>게임</th><th>장르</th><th>점수</th><th>구글 / iOS</th><th>관찰 포인트</th></tr></thead>
+      <tbody>
+        <tr class="top"><td><span class="tier">1</span></td><td>제우스</td><td>MMO/RPG</td><td class="n">95.8</td><td class="n">2 / 4</td><td>성장 압박과 과금 상품 구성</td></tr>
+        <tr class="top"><td><span class="tier">1</span></td><td>WOS</td><td>4X/전략</td><td class="n">90.5</td><td class="n">3 / 1</td><td>튜토리얼 이후 동맹 · 전쟁 유도</td></tr>
+        <tr class="top"><td><span class="tier">1</span></td><td>리니지M</td><td>MMO/RPG</td><td class="n">90.2</td><td class="n">9 / 11</td><td>4시점 연속 하락의 원인</td></tr>
+        <tr class="top"><td><span class="tier">1</span></td><td>메이플 키우기</td><td>방치/키우기</td><td class="n">86.4</td><td class="n">13 / 9</td><td>방치형 장르 단독 대표</td></tr>
+        <tr class="top"><td><span class="tier">1</span></td><td>가십하버</td><td>합성+스토리</td><td class="n">85.4</td><td class="n">5 / 3</td><td>에너지와 스토리 해금의 연결</td></tr>
+        <tr><td><span class="tier">1</span></td><td>운빨존많겜</td><td>서바이벌/디펜스</td><td class="n">81.4</td><td class="n">11 / 6</td><td>랜덤 요소와 광고 보상 배분</td></tr>
+        <tr><td><span class="tier">1</span></td><td>킹샷</td><td>4X/전략</td><td class="n">80.8</td><td class="n">4 / 8</td><td>WOS와의 차이</td></tr>
+        <tr><td><span class="tier">1</span></td><td>로얄 매치</td><td>매치3/타운</td><td class="n">80.0</td><td class="n">7 / 7</td><td>레벨 난이도 곡선과 부스터 판매</td></tr>
+        <tr><td><span class="tier">1</span></td><td>로블록스</td><td>UGC/글로벌 IP</td><td class="n">76.9</td><td class="n">8 / 12</td><td>플랫폼형 결제 구조</td></tr>
+        <tr><td><span class="tier">1</span></td><td>테이스티 트레블</td><td>합성+스토리</td><td class="n">71.4</td><td class="n">19 / 13</td><td>가십하버와의 공통 구조</td></tr>
+        <tr><td><span class="tier">2</span></td><td>가든스케이프</td><td>매치3/타운</td><td class="n">67.2</td><td class="n">22 / 16</td><td>로얄 매치와 비교: 꾸미기 요소</td></tr>
+        <tr><td><span class="tier">2</span></td><td>FC 모바일</td><td>스포츠</td><td class="n">66.0</td><td class="n">26 / 21</td><td>시즌 · 선수 카드 확률형 구조</td></tr>
+        <tr><td><span class="tier">2</span></td><td>한게임포커 클래식</td><td>포커/카지노</td><td class="n">46.9</td><td class="n">28 / –</td><td>칩 상점과 일일 보상</td></tr>
+        <tr><td><span class="tier">2</span></td><td>명조</td><td>서브컬처 가챠</td><td class="n">42.2</td><td class="n">14 / –</td><td>가챠 천장, iOS 1위 → 이탈 원인</td></tr>
+        <tr><td><span class="tier">3</span></td><td>도깨비의세계</td><td>MMO/RPG</td><td class="n">34.0*</td><td class="n">1 / 2</td><td>출시 초반 과금 · 보상 설계</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.82rem;color:var(--muted)">* 관측 4회 미만이라 안정성 점수가 0으로 계산된 참고값입니다. 점수가 낮은 이유는 ‘약해서’가 아니라 ‘아직 데이터가 없어서’입니다.</p>
+
+  <h3>플레이 예산별로 얼마나 덮는가</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>플레이 수</th><th>점수 커버</th><th>장르</th><th>점수순으로만 골랐다면</th></tr></thead>
+      <tbody>
+        <tr><td class="n">5종</td><td class="n">19.4%</td><td class="n">4 / 10</td><td>동일</td></tr>
+        <tr><td class="n">10종</td><td class="n">35.8%</td><td class="n">7 / 10</td><td>35.9% · 7장르</td></tr>
+        <tr><td class="n"><b>14종</b></td><td class="n">44.6%</td><td class="n"><b>10 / 10</b></td><td>46.4% · 8장르</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>점수순으로만 고르는 것보다 커버율을 2%p 포기하고 <b>장르 10개를 모두 덮는 쪽</b>을 택했습니다.</p>
+</section>
+
+<section id="validation">
+  <div class="sec-head"><h2>[validation]<span class="ko">검증</span></h2></div>
+
+  <h3>결론은 얼마나 흔들리는가</h3>
+  <figure>
+    <div class="frame"><img src="figs/fig4.svg" alt="가중치 1만 회 무작위 추출에서 게임별 순위 분포. 상위 5종은 대부분 5위 안에 머문다." loading="lazy" /></div>
+    <figcaption>그림 2. 가중치 10,000회 추출 시 순위 분포. 선 = 최소~최대, 막대 = 10~90백분위, 점 = 중앙값, 오른쪽 숫자 = TOP10 확률.</figcaption>
+  </figure>
+  <ul>
+    <li>상위 5종의 TOP5 확률: 제우스 100% · WOS 99% · 가십하버 97% · 리니지M 93% · 메이플 키우기 90%.</li>
+    <li>가중치를 바꿔도 TOP10은 평균 <b>8.7 / 10</b> 겹치고, 점수 변환을 바꿔도 TOP10이 <b>10 / 10</b> 그대로였습니다.</li>
+  </ul>
+
+  <h3>한 달 뒤를 맞혔는가 (백테스트)</h3>
+  <figure>
+    <div class="frame"><img src="figs/fig2.svg" alt="예측 방법별 TOP10 적중과 순위상관 비교 그래프." loading="lazy" /></div>
+    <figcaption>그림 3. 예측 방법별 TOP10 적중과 순위상관 (10/1까지의 데이터 → 10/29 예측).</figcaption>
+  </figure>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>예측 방법</th><th>순위상관 ρ</th><th>TOP10</th><th>TOP5</th></tr></thead>
+      <tbody>
+        <tr><td><b>복합 점수 (이 분석)</b></td><td class="n">0.82</td><td class="n"><b>9 / 10</b></td><td class="n">3 / 5</td></tr>
+        <tr><td>시장 지위 점수만</td><td class="n">0.82</td><td class="n">9 / 10</td><td class="n">2 / 5</td></tr>
+        <tr><td>직전 시점 순위만</td><td class="n">0.77</td><td class="n">9 / 10</td><td class="n">2 / 5</td></tr>
+        <tr><td>최근성 가중 (1:2:3)</td><td class="n">0.82</td><td class="n">10 / 10</td><td class="n">2 / 5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>‘상위 10’은 한 달 단위로 예측되지만, ‘상위 5의 순서’는 어떤 방법으로도 2~3/5에 그쳤습니다. 최근성 가중이 두 번 모두 좋았지만 검증이 두 번뿐이라 기본 점수는 바꾸지 않고, 다음 시점에서 한 번 더 확인하기로 했습니다.</p>
+
+  <h3>급등 신호는 오래가는가</h3>
+  <figure>
+    <div class="frame"><img src="figs/fig6.svg" alt="주요 게임의 두 스토어 평균 순위 궤적. 이클립스, 명조, 트릭컬 등 급등작이 다음 관측에서 하락한다." loading="lazy" /></div>
+    <figcaption>그림 4. 주요 게임의 순위 궤적 (두 스토어 평균, 위로 갈수록 상위).</figcaption>
+  </figure>
+  <ul>
+    <li>이전 분석에서 급등 신호로 뽑은 5종(트릭컬 리바이브, 이클립스, SD건담, WPL, 후더덕)은 4주 뒤 <b>5종 모두 하락 · 이탈</b>했습니다.</li>
+    <li>이클립스는 1위로 진입한 뒤 6주 동안 1 → 5.5 → 10위. 명조 · 트릭컬은 한 시점 급등 뒤 바로 원위치였습니다.</li>
+    <li>그래서 신작 <b>도깨비의세계</b>(구글 1위 · iOS 2위로 진입)는 순서를 당겨 <b>가장 먼저</b> 보도록 플레이 순서를 바꿨습니다. 출시 초반 과금 · 보상 구조는 지금만 볼 수 있기 때문입니다.</li>
+  </ul>
+</section>
+
+<section id="market">
+  <div class="sec-head"><h2>[market]<span class="ko">시장 구조</span></h2></div>
+  <figure>
+    <div class="frame"><img src="figs/fig8.svg" alt="장르별 점수 비중 10/1과 10/29 비교 막대그래프." loading="lazy" /></div>
+    <figcaption>그림 5. 장르별 점수 비중: 10/1 vs 10/29.</figcaption>
+  </figure>
+  <ul>
+    <li>MMO/RPG · 4X · 합성 3개 장르가 누적 점수의 <b>약 49%</b> (부트스트랩 95% 구간 34~64%). 10/29 한 시점만 보면 53%로 쏠림이 더 커졌습니다.</li>
+    <li>서브컬처 가챠는 11.0% → 4.6%. 10/1의 서브컬처 비중은 이벤트로 부풀려진 값이었습니다.</li>
+    <li>배급사 HHI 498로 비집중. NEXON(10.8%)과 Century Games(10.6%)가 거의 같은 몫을 가졌습니다.</li>
+  </ul>
+</section>
+
+<section id="limits">
+  <div class="sec-head"><h2>[limits]<span class="ko">한계와 다음 단계</span></h2></div>
+  <ul>
+    <li><b>매출 순위 ≠ 재미 · 이용자 수.</b> 이 분석은 ‘시장이 돈을 쓰는 곳’을 보는 도구입니다.</li>
+    <li>원자료는 실시간 순위 스크린샷을 손으로 옮긴 것이고, 시점 간격이 2주 · 2주 · 4주로 고르지 않습니다. → 2주 간격 고정 수집.</li>
+    <li>신규 게임 일부의 장르는 이름 · 배급사로 추정했습니다. → 플레이 후 분류표 갱신.</li>
+    <li>도깨비의세계는 관측 2회뿐입니다. 다음 관측에서도 TOP5에 남으면 1단계 후보로 올립니다.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  서현석 · 유한대학교 게임콘텐츠전공<br />
+  9/3 · 9/17 · 10/1 첫 분석(19종) → 10/29 업데이트(15종) · <a href="../../#planning">포트폴리오로</a>
+</footer>
+
+</div>
+</body>
+</html>
