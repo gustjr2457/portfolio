@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>서현석 — 게임 분석</title>
+<meta name="description" content="서현석의 게임 분석. 모바일 매출 순위 4시점 · 94종 분석 결과 위에 직접 플레이한 게임 10종을 겹쳐 시장 경험의 범위와 공백을 정리했습니다." />
+<meta name="author" content="서현석" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="서현석 — 게임 분석" />
+<meta property="og:description" content="순위 데이터로 시장을 나누고, 직접 플레이한 게임을 그 위에 올려 봤습니다." />
+<meta property="og:url" content="https://seo-hyunseok.vercel.app/analysis/" />
+<meta property="og:locale" content="ko_KR" />
+<link rel="canonical" href="https://seo-hyunseok.vercel.app/analysis/" />
+<meta name="theme-color" content="#0d0d0d" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<link rel="stylesheet" href="/site.css" />
+<style>
+/* 분석 화면 전용. 색은 site.css 토큰만 쓴다: 플레이한 게임 = 앰버, 나머지는 회색 단계 */
+.played-dot{display:inline-block;width:.6em;height:.6em;background:var(--amber);margin-right:.35em;vertical-align:.05em}
+
+/* 장르 막대 */
+.genres{border:1px solid var(--line);padding:16px 18px;display:grid;gap:9px;margin-top:16px}
+.g-row{display:grid;grid-template-columns:128px minmax(0,1fr) 54px;gap:12px;align-items:center;font-size:.86rem}
+.g-lab{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-lab.done{color:var(--fg)}
+.g-track{height:12px;background:var(--bg-3);position:relative}
+.g-all{position:absolute;inset:0 auto 0 0;background:var(--line-2)}
+.g-mine{position:absolute;inset:0 auto 0 0;background:var(--amber)}
+.g-val{font-family:var(--mono);font-size:.76rem;color:var(--fg-2);text-align:right}
+.g-who{grid-column:2/4;font-size:.76rem;color:var(--muted);margin-top:-6px}
+.g-who b{color:var(--amber-2);font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+/* 플레이 카드 */
+.plays{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.play{border:1px solid var(--line);background:var(--bg-2);padding:14px 16px 12px;display:grid;gap:6px;align-content:start}
+.play-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.play h3{font-family:var(--sans);font-weight:700;font-size:.98rem;margin:0;letter-spacing:-.015em}
+.play .stage{font-family:var(--mono);font-size:.7rem;color:var(--muted);flex:none}
+.play .stage.on{color:var(--amber)}
+.play .genre{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.play .ranks{font-family:var(--mono);font-size:.76rem;color:var(--fg-2);display:flex;flex-wrap:wrap;gap:2px 14px}
+.play .ranks b{color:var(--fg);font-weight:500}
+.play p{margin:0;font-size:.86rem;color:var(--fg-2);line-height:1.65}
+.spark{display:block;width:100%;height:58px}
+.spark-key{font-family:var(--mono);font-size:.68rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 12px}
+.spark-key i{display:inline-block;width:10px;height:2px;vertical-align:3px;margin-right:5px}
+
+.pairs{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pairs span{font-family:var(--mono);font-size:.74rem;color:var(--fg-2);border:1px solid var(--line-2);padding:2px 8px}
+.pairs span b{color:var(--amber);font-weight:500}
+
+/* 순위표 */
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin:0 0 12px}
+.views{display:flex;flex-wrap:wrap;gap:6px}
+.views button{
+  font-family:var(--mono);font-size:.76rem;color:var(--fg-2);background:none;
+  border:1px solid var(--line-2);padding:3px 11px;line-height:1.6;cursor:pointer;
+}
+.views button:hover{background:var(--bg-3);color:var(--amber);border-color:var(--amber-2)}
+.views button[aria-selected="true"]{background:var(--amber);color:#0d0d0d;border-color:var(--amber);font-weight:700}
+.only{font-family:var(--mono);font-size:.76rem;color:var(--fg-2);display:inline-flex;align-items:center;gap:7px;cursor:pointer}
+.only input{accent-color:var(--amber);width:15px;height:15px;margin:0}
+.rank-table{max-height:640px;overflow:auto}
+.rank-table table{font-size:.84rem;min-width:560px}
+.rank-table th,.rank-table td{padding:7px 12px;white-space:nowrap;vertical-align:middle}
+.rank-table th{position:sticky;top:0;z-index:1}
+.rank-table td:first-child{width:auto;font-family:var(--mono);font-size:.78rem;color:var(--muted);padding-right:8px}
+.rank-table td:last-child{color:inherit}
+.rank-table td{color:var(--fg-2)}
+.rank-table .r{text-align:right;font-family:var(--mono);font-size:.78rem}
+.rank-table tr.mine td{background:rgba(255,180,84,.08);color:var(--fg)}
+.rank-table tr.mine td:first-child{box-shadow:inset 2px 0 0 var(--amber);color:var(--amber)}
+.rank-table tr.mine .gn{font-weight:600}
+.rank-table tr.dim td{color:var(--muted)}
+.rank-table .tag{font-family:var(--mono);font-size:.66rem;color:#0d0d0d;background:var(--amber);padding:0 5px;margin-left:7px;font-weight:700;vertical-align:.1em}
+.rank-table small{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-left:7px}
+.up{color:var(--fg)}.down{color:var(--muted)}
+.table-note{font-size:.8rem;color:var(--muted);margin:10px 0 0}
+
+@media (max-width:640px){
+  .plays{grid-template-columns:1fr}
+  .g-row{grid-template-columns:96px minmax(0,1fr) 48px}
+}
+@media print{.toolbar{display:none}.rank-table{max-height:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<nav class="tabs" aria-label="화면 전환"><div class="tabs-in">
+  <a class="home" href="/"><i>~/</i>seo-hyunseok</a>
+  <a class="tab" href="/">개발</a>
+  <a class="tab" href="/planning/">기획</a>
+  <a class="tab" href="/analysis/" aria-current="page">분석</a>
+</div></nav>
+
+<div class="page">
+
+<header class="doc">
+  <p class="prompt"><i>$</i>cd ~/analysis</p>
+
+  <h1 class="name">게임 분석<span class="cursor" aria-hidden="true"></span></h1>
+  <p class="role-en">Game Analysis / Market Data · Play Log</p>
+
+  <p class="tagline">
+    순위 데이터로 시장을 나누고, 직접 플레이한 게임을 그 위에 올려 봤습니다.
+    <span class="sub">국내 구글 플레이 · App Store 매출 순위 4시점, 94종. 어디까지 경험했고 무엇이 비어 있는지 숫자로 확인합니다.</span>
+  </p>
+
+  <div class="flow">순위 데이터 수집<i>→</i>시장 구조 분석<i>→</i>플레이 기록 대조<i>→</i>다음 플레이 선정</div>
+
+  <nav class="toc" aria-label="목차">
+    <a href="#summary">summary</a>
+    <a href="#played">played</a>
+    <a href="#gaps">gaps</a>
+    <a href="#ranking">ranking</a>
+    <a href="#method">method</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<section id="summary">
+  <div class="sec-head"><h2>[summary]<span class="ko">분석 요약</span></h2></div>
+  <p class="sec-note">2026.09 → 2026.10 · 모바일인덱스 실시간 매출 순위를 9/3 · 9/17 · 10/1 · 10/29에 직접 기록했습니다.</p>
+
+  <article class="proj">
+    <div class="proj-head">
+      <h3>모바일 매출 순위로 본 시장 구조</h3>
+      <span class="period">2026.09 → 2026.10</span>
+    </div>
+    <span class="kind">시장 데이터 분석</span>
+    <dl>
+      <dt>data</dt><dd>구글 / iOS 매출 순위 TOP46 · 4시점 · 8개 표 · 94종</dd>
+      <dt>stack</dt><dd><div class="stack"><span>PowerShell</span><span>C#</span><span>SVG</span><span>Obsidian</span></div></dd>
+      <dt>doc</dt><dd><a href="/planning/mobile-ranking/">전체 분석 보고서</a></dd>
+    </dl>
+    <h4>알아낸 것</h4>
+    <ul>
+      <li><b>상위권은 안정적</b> — 제우스 · WOS · 리니지M · 메이플 키우기 · 가십하버가 두 달 내내 최상위. 점수 가중치를 1만 번 바꿔도 TOP5에 남을 확률 90~100%.</li>
+      <li><b>급등은 오래가지 않음</b> — TOP5로 급진입한 신작 · 이벤트작 6건이 다음 관측에서 모두 하락했습니다.</li>
+      <li><b>기존 강자의 하락</b> — 리니지M은 두 스토어 평균 1.5위 → 3위 → 3.5위 → 10위로 4시점 연속 하락.</li>
+      <li><b>세 장르에 절반</b> — MMO/RPG · 4X 전략 · 합성(머지)이 순위 점수의 약 49% (95% 구간 34~64%).</li>
+      <li><b>비집중 시장</b> — 배급사 HHI 498. 1위 NEXON 10.8%, 2위 Century Games 10.6%.</li>
+    </ul>
+    <div class="plan-stats">
+      <div><b>94종</b><span>추적한 게임 · 8개 표</span></div>
+      <div><b>9 / 10</b><span>한 달 뒤 실제 TOP10 사전 적중</span></div>
+      <div><b>15종</b><span>추천 플레이 목록 · 10개 장르</span></div>
+    </div>
+  </article>
+</section>
+
+<section id="played">
+  <div class="sec-head"><h2>[played]<span class="ko">플레이한 게임</span></h2></div>
+  <p class="sec-note">직접 플레이한 10종을 분석 결과에 겹쳐 봤습니다. 상위권 핵심은 이미 경험했지만, 시장 비중이 가장 큰 장르는 비어 있습니다.</p>
+
+  <div class="plan-stats" id="played-stats"></div>
+
+  <div class="genres" id="genres" aria-label="장르별 시장 비중과 플레이한 게임의 몫"></div>
+  <div class="legend"><span><i style="background:var(--amber)"></i>플레이한 게임의 몫</span><span><i style="background:var(--line-2)"></i>장르 전체 몫 · 8개 표 순위 점수 합 기준</span></div>
+
+  <div class="plays" id="plays"></div>
+  <div class="pairs" id="pairs"></div>
+</section>
+
+<section id="gaps">
+  <div class="sec-head"><h2>[gaps]<span class="ko">다음 플레이</span></h2></div>
+  <p class="sec-note">아직 플레이하지 않은 5개 장르에서 분석 점수가 가장 높은 게임입니다.</p>
+  <div class="table-wrap rank-table" style="max-height:none">
+    <table>
+      <thead><tr><th>장르</th><th>게임</th><th class="r">시장 몫</th><th class="r">종합 순위</th><th class="r">10/29 구글</th><th class="r">10/29 iOS</th></tr></thead>
+      <tbody id="gap-rows"></tbody>
+    </table>
+  </div>
+  <div class="closing" id="gap-note"></div>
+</section>
+
+<section id="ranking">
+  <div class="sec-head"><h2>[ranking]<span class="ko">전체 순위</span></h2></div>
+  <p class="sec-note">10/29 실시간 매출 순위 원표(1~47위)와 4시점 8개 표로 계산한 94종 종합 점수표입니다. <span class="played-dot"></span>표시가 플레이한 게임입니다.</p>
+
+  <div class="toolbar">
+    <div class="views" role="tablist" aria-label="순위표 선택">
+      <button type="button" role="tab" id="view-g" aria-selected="true" data-view="g">10/29 구글</button>
+      <button type="button" role="tab" id="view-i" aria-selected="false" data-view="i">10/29 iOS</button>
+      <button type="button" role="tab" id="view-s" aria-selected="false" data-view="s">종합 점수 94종</button>
+    </div>
+    <label class="only" for="only-played"><input type="checkbox" id="only-played" />플레이한 게임만</label>
+  </div>
+  <div class="table-wrap rank-table" role="tabpanel" aria-labelledby="view-g" id="rank-box"></div>
+  <p class="table-note" id="rank-note"></p>
+</section>
+
+<section id="method">
+  <div class="sec-head"><h2>[method]<span class="ko">기준과 한계</span></h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td>시장 지위 · 60%</td><td>순위 r을 (47 − r) ÷ 46 × 100으로 바꾼 8개 표 평균. 순위권 밖은 0</td></tr>
+        <tr><td>안정성 · 20%</td><td>100 − 6σ. σ는 순위 표준편차, 관측 4회 미만은 0</td></tr>
+        <tr><td>스토어 일관성 · 20%</td><td>100 − 4g. g는 같은 날 구글 · iOS 순위 차이의 평균</td></tr>
+        <tr><td>시장 노출도</td><td>94종 종합 점수 합에서 플레이한 게임이 차지하는 몫. 매출 점유율이 아니라 상위 노출의 근사치</td></tr>
+        <tr><td>데이터 정제</td><td>표기 변형 병합, 동명 앱 중복 제거, 스크린샷 오독 재확인, 순위 깊이를 TOP46으로 통일</td></tr>
+        <tr><td>한계</td><td>매출 순위라 재미 · 이용자 수와 다릅니다. 상위 10위권은 예측되지만 상위 5위 순서와 갑자기 뜰 신작은 예측하지 못합니다. 장르 · 국적은 직접 분류했고 일부는 추정입니다.</td></tr>
+        <tr><td>도구</td><td>PowerShell + C# (몬테카를로 10,000회, 부트스트랩 5,000회). 분석 코드와 문서 작성에 AI(Claude)를 활용했습니다.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  서현석 · 유한대학교 게임콘텐츠전공 · <a href="/">개발 포트폴리오로</a> · <a href="/planning/">기획 작업으로</a><br />
+  최종 수정 <time datetime="2026-11-26">2026-11-26</time> · &copy; 2026 서현석
+</footer>
+
+</div>
+
+<script src="/analysis/data.js"></script>
+<script>
+(function () {
+  var D = window.RANK_DATA;
+  // 직접 플레이한 게임. 이름은 data.js의 정규화된 게임명과 같아야 한다
+  var PLAYED = ["메이플 키우기", "쿠키런 키우기", "명조", "하스스톤", "카오스 제로 나이트메어", "WOS", "운빨존많겜", "로블록스", "킹샷", "포켓몬 GO"];
+  // 카드 설명은 순위 데이터에서 확인되는 사실만 적는다
+  var NOTES = {
+    "WOS": "4X 전략 장르 1위. 10/29에는 App Store 1위까지 올랐습니다.",
+    "메이플 키우기": "방치형 1위. 구글 순위가 7 · 6 · 8 · 13위로 마지막 시점에 크게 내려갔습니다.",
+    "운빨존많겜": "서바이벌/디펜스 1위. 8번 관측 내내 두 스토어 TOP15를 지켰습니다.",
+    "킹샷": "WOS와 같은 회사(Century Games)의 후속작. 구글에서 더 강세입니다.",
+    "로블록스": "게임이 아니라 플랫폼. 10/1에는 구글 3위까지 올랐습니다.",
+    "쿠키런 키우기": "9/3 iOS 8위에서 10/29 구글 34위 · iOS 47위로 크게 하락했습니다.",
+    "명조": "10/1 App Store 1위 → 10/29 순위권 밖. 이벤트형 급등의 대표 사례입니다.",
+    "포켓몬 GO": "9/3 iOS 14위에서 하락. 10/29 구글은 순위권 밖, iOS 24위입니다.",
+    "카오스 제로 나이트메어": "10/29에 처음 등장한 신작입니다 (구글 21위 · iOS 41위).",
+    "하스스톤": "10/29 구글 46위로 처음 관측된 오래된 글로벌 IP입니다."
+  };
+  var PAIRS = [["WOS", "킹샷", "같은 회사 4X"], ["메이플 키우기", "쿠키런 키우기", "방치형 IP"], ["명조", "카오스 제로 나이트메어", "서브컬처"]];
+  var OUT = 47;
+
+  var games = D.games;
+  var byName = {}; games.forEach(function (g, i) { g.idx = i + 1; byName[g.n] = g; });
+  var mine = function (n) { return PLAYED.indexOf(n) >= 0; };
+  var total = games.reduce(function (a, g) { return a + g.raw; }, 0);
+  var pct = function (v) { return (v * 100).toFixed(1) + "%"; };
+  var rk = function (v) { return v ? v : "–"; };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var $ = function (id) { return document.getElementById(id); };
+
+  var played = PLAYED.map(function (n) { return byName[n]; }).filter(Boolean);
+  var playedRaw = played.reduce(function (a, g) { return a + g.raw; }, 0);
+  var genreNames = []; games.forEach(function (g) { if (genreNames.indexOf(g.ge) < 0) genreNames.push(g.ge); });
+  var rec = games.filter(function (g) { return g.st > 0; });
+
+  // [played] 요약 수치
+  var genreDone = {}; played.forEach(function (g) { genreDone[g.ge] = 1; });
+  $("played-stats").innerHTML =
+    '<div><b>' + pct(playedRaw / total) + '</b><span>시장 노출도 · 94종 순위 점수 중 플레이한 게임의 몫</span></div>' +
+    '<div><b>' + Object.keys(genreDone).length + ' / ' + genreNames.length + '</b><span>경험한 장르</span></div>' +
+    '<div><b>' + played.filter(function (g) { return g.st > 0; }).length + ' / ' + rec.length + '</b><span>추천 플레이 목록 중 플레이 · 종합 TOP10 중 ' +
+      games.slice(0, 10).filter(function (g) { return mine(g.n); }).length + '종</span></div>';
+
+  // 장르 막대
+  var rows = genreNames.map(function (ge) {
+    var gs = games.filter(function (g) { return g.ge === ge; });
+    var all = gs.reduce(function (a, g) { return a + g.raw; }, 0) / total;
+    var my = gs.filter(function (g) { return mine(g.n); });
+    return { ge: ge, all: all, mine: my.reduce(function (a, g) { return a + g.raw; }, 0) / total, names: my.map(function (g) { return g.n; }), top: gs[0] };
+  }).sort(function (a, b) { return b.all - a.all; });
+  var max = rows[0].all;
+  $("genres").innerHTML = rows.map(function (r) {
+    return '<div class="g-row"><span class="g-lab' + (r.mine ? " done" : "") + '" title="' + esc(r.ge) + '">' + esc(r.ge) + '</span>' +
+      '<div class="g-track" role="img" aria-label="' + esc(r.ge) + ' 전체 ' + pct(r.all) + ', 플레이한 몫 ' + pct(r.mine) + '">' +
+      '<div class="g-all" style="width:' + (r.all / max * 100).toFixed(1) + '%"></div><div class="g-mine" style="width:' + (r.mine / max * 100).toFixed(1) + '%"></div></div>' +
+      '<span class="g-val">' + pct(r.all) + '</span>' +
+      '<span class="g-who">' + (r.names.length ? '<b>' + esc(r.names.join(" · ")) + '</b>' : '미경험 · 대표작 ' + esc(r.top.n)) + '</span></div>';
+  }).join("");
+
+  // 플레이 카드: 스파크라인은 위가 1위, 빈 점은 순위권 밖
+  function spark(g) {
+    var W = 300, H = 58, px = 6, py = 6;
+    var x = function (i) { return px + i * (W - 2 * px) / 3; };
+    var y = function (r) { return py + ((r || OUT) - 1) / (OUT - 1) * (H - 2 * py); };
+    var grid = [1, 10, 25, 47].map(function (r) { return '<line x1="' + px + '" x2="' + (W - px) + '" y1="' + y(r).toFixed(1) + '" y2="' + y(r).toFixed(1) + '" stroke="var(--line)" stroke-width="1" vector-effect="non-scaling-stroke"></line>'; }).join("");
+    var line = function (k, color) {
+      var pts = [0, 1, 2, 3].map(function (i) { var v = g.r[2 * i + k]; return [x(i), y(v), v > 0]; });
+      return '<polyline points="' + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ") + '" fill="none" stroke="' + color + '" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>' +
+        pts.map(function (p) { return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="' + (p[2] ? color : "var(--bg-2)") + '" stroke="' + color + '" stroke-width="1.5"></circle>'; }).join("");
+    };
+    var gs = [0, 2, 4, 6].map(function (i) { return rk(g.r[i]); }).join("→"), is = [1, 3, 5, 7].map(function (i) { return rk(g.r[i]); }).join("→");
+    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + esc(g.n) + ' 순위 추이: 구글 ' + gs + ', iOS ' + is + '">' + grid + line(1, "var(--muted)") + line(0, "var(--amber)") + '</svg>';
+  }
+  $("plays").innerHTML = played.slice().sort(function (a, b) { return a.idx - b.idx; }).map(function (g) {
+    var stage = g.st ? '<span class="stage on">추천 ' + g.st + '단계</span>' : '<span class="stage">추천 외</span>';
+    return '<article class="play"><div class="play-head"><h3>' + esc(g.n) + '</h3>' + stage + '</div>' +
+      '<span class="genre">' + esc(g.ge) + ' · ' + esc(g.pu) + '</span>' +
+      '<div class="ranks"><span>종합 <b>#' + g.idx + '</b>/94</span><span>10/29 구글 <b>' + rk(g.r[6]) + '</b> · iOS <b>' + rk(g.r[7]) + '</b></span></div>' +
+      spark(g) +
+      '<div class="spark-key"><span><i style="background:var(--amber)"></i>구글</span><span><i style="background:var(--muted)"></i>iOS</span><span>9/3 → 10/29</span></div>' +
+      '<p>' + esc(NOTES[g.n] || "") + '</p></article>';
+  }).join("");
+  $("pairs").innerHTML = PAIRS.map(function (p) { return '<span><b>' + esc(p[0]) + ' ↔ ' + esc(p[1]) + '</b> · ' + esc(p[2]) + ' 비교</span>'; }).join("");
+
+  // [gaps]
+  var gaps = rows.filter(function (r) { return !r.mine; });
+  $("gap-rows").innerHTML = gaps.map(function (r) {
+    var g = r.top;
+    return '<tr><td>' + esc(r.ge) + '</td><td>' + esc(g.n) + '</td><td class="r">' + pct(r.all) + '</td><td class="r">#' + g.idx + '</td><td class="r">' + rk(g.r[6]) + '</td><td class="r">' + rk(g.r[7]) + '</td></tr>';
+  }).join("");
+  var gapShare = gaps.reduce(function (a, r) { return a + r.all; }, 0);
+  var after = (playedRaw + gaps.reduce(function (a, r) { return a + r.top.raw; }, 0)) / total;
+  $("gap-note").innerHTML = '<p>플레이하지 않은 5개 장르가 시장 점수의 <b>' + pct(gapShare) + '</b>를 차지합니다. 위 5종을 더하면 장르 <b>' + genreNames.length + ' / ' + genreNames.length +
+    '</b>, 시장 노출도는 <b>' + pct(playedRaw / total) + ' → ' + pct(after) + '</b>가 됩니다.</p><p>가장 큰 공백은 MMO/RPG입니다. 제우스는 94종 중 종합 점수 1위입니다.</p>';
+
+  // [ranking]
+  var view = "g";
+  var onlyEl = $("only-played");
+  function delta(cur, prev) {
+    if (!prev) return '<span class="up">신규</span>';
+    var d = prev - cur;
+    return d > 0 ? '<span class="up">▲' + d + '</span>' : d < 0 ? '<span class="down">▼' + (-d) + '</span>' : '<span class="down">–</span>';
+  }
+  function render() {
+    var only = onlyEl.checked, html, note;
+    if (view === "s") {
+      html = '<table><thead><tr><th>#</th><th>게임</th><th>장르</th><th class="r">구글 10/1</th><th class="r">iOS 10/1</th><th class="r">구글 10/29</th><th class="r">iOS 10/29</th><th class="r">점수</th><th>추천</th></tr></thead><tbody>' +
+        games.filter(function (g) { return !only || mine(g.n); }).map(function (g) {
+          var m = mine(g.n);
+          return '<tr class="' + (m ? "mine" : "") + '"><td>' + g.idx + '</td><td class="gn">' + esc(g.n) + (m ? '<span class="tag">PLAYED</span>' : "") + '</td><td>' + esc(g.ge) + '</td>' +
+            '<td class="r">' + rk(g.r[4]) + '</td><td class="r">' + rk(g.r[5]) + '</td><td class="r">' + rk(g.r[6]) + '</td><td class="r">' + rk(g.r[7]) + '</td>' +
+            '<td class="r">' + g.s.toFixed(1) + (g.ob < 4 ? "‡" : "") + '</td><td>' + (g.st ? g.st + "단계" : "") + '</td></tr>';
+        }).join("") + '</tbody></table>';
+      note = "점수 = 0.6 × 시장 지위 + 0.2 × 안정성 + 0.2 × 스토어 일관성. ‡ = 관측 4회 미만(참고용). ‘–’ = 해당 표 TOP46 밖.";
+    } else {
+      var list = view === "g" ? D.g1029 : D.i1029, col = view === "g" ? 4 : 5;
+      html = '<table><thead><tr><th>순위</th><th>게임</th><th>배급사</th><th>장르</th><th class="r">10/1 대비</th></tr></thead><tbody>' +
+        list.filter(function (e) { return !only || (mine(e.c) && !e.dup); }).map(function (e) {
+          var g = byName[e.c], m = mine(e.c) && !e.dup;
+          var d = e.dup ? '<span class="down">중복 표기</span>' : g ? delta(e.rk, g.r[col]) : "";
+          return '<tr class="' + (m ? "mine" : "") + (e.dup ? " dim" : "") + '"><td>' + e.rk + '</td><td class="gn">' + esc(e.raw) + (m ? '<span class="tag">PLAYED</span>' : "") + (e.edge ? "<small>분석 제외</small>" : "") + '</td>' +
+            '<td>' + esc(e.pub) + '</td><td>' + (g ? esc(g.ge) : "") + '</td><td class="r">' + d + '</td></tr>';
+        }).join("") + '</tbody></table>';
+      var n = list.filter(function (e) { return mine(e.c) && !e.dup; }).length;
+      note = "10/29 " + (view === "g" ? "구글 플레이" : "App Store") + " 1~47위 중 플레이한 게임 " + n + "종. 10/1 대비는 같은 스토어 기준이고, 이전 시점과 맞추기 위해 분석에는 46위까지만 썼습니다.";
+    }
+    $("rank-box").innerHTML = html;
+    $("rank-box").setAttribute("aria-labelledby", "view-" + view);
+    $("rank-note").textContent = note;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".views button"), function (b) {
+    b.addEventListener("click", function () {
+      view = b.getAttribute("data-view");
+      Array.prototype.forEach.call(document.querySelectorAll(".views button"), function (x) { x.setAttribute("aria-selected", String(x === b)); });
+      render();
+    });
+  });
+  onlyEl.addEventListener("change", render);
+  render();
+})();
+</script>
+</body>
+</html>
