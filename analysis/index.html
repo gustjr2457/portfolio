@@ -147,7 +147,7 @@
     <h4>알아낸 것</h4>
     <ul>
       <li><b>상위권은 안정적</b> — 제우스 · WOS · 리니지M · 메이플 키우기 · 가십하버가 두 달 내내 최상위. 점수 가중치를 1만 번 바꿔도 TOP5에 남을 확률 90~100%.</li>
-      <li><b>급등은 오래가지 않음</b> — TOP5로 급진입한 신작 · 이벤트작 6건이 다음 관측에서 모두 하락했습니다.</li>
+      <li><b>주년 · 업데이트 급등은 오래가지 않음</b> — 급진입한 6건(명조 · 트릭컬 3주년 · SD건담 1.5주년 · 이클립스 등)이 다음 관측에서 모두 하락. 반면 대형 신작 도깨비의세계(10/8 출시)는 11/26에도 구글 1위였습니다.</li>
       <li><b>기존 강자의 하락</b> — 리니지M은 두 스토어 평균 1.5위 → 3위 → 3.5위 → 10위로 4시점 연속 하락.</li>
       <li><b>세 장르에 절반</b> — MMO/RPG · 4X 전략 · 합성(머지)이 순위 점수의 약 49% (95% 구간 34~64%).</li>
       <li><b>비집중 시장</b> — 배급사 HHI 498. 1위 NEXON 10.8%, 2위 Century Games 10.6%.</li>
@@ -162,7 +162,7 @@
 
 <section id="played">
   <div class="sec-head"><h2>[played]<span class="ko">플레이한 게임</span></h2></div>
-  <p class="sec-note">직접 플레이한 10종을 분석 결과에 겹쳐 봤습니다. 상위권 핵심은 이미 경험했지만, 시장 비중이 가장 큰 장르는 비어 있습니다.</p>
+  <p class="sec-note">직접 플레이한 10종을 분석 결과에 겹쳐 봤습니다. 상위권 핵심은 이미 경험했지만, 시장 비중이 가장 큰 장르는 비어 있습니다. 카드에는 분석 이후 다시 확인한 11/26 순위도 함께 적었습니다.</p>
 
   <div class="plan-stats" id="played-stats"></div>
 
@@ -187,12 +187,14 @@
 
 <section id="ranking">
   <div class="sec-head"><h2>[ranking]<span class="ko">전체 순위</span></h2></div>
-  <p class="sec-note">10/29 실시간 매출 순위 원표(1~47위)와 4시점 8개 표로 계산한 94종 종합 점수표입니다. <span class="played-dot"></span>표시가 플레이한 게임입니다.</p>
+  <p class="sec-note">분석에 쓴 10/29 실시간 매출 순위 원표(1~47위), 분석 이후 다시 확인한 11/26 원표, 4시점 8개 표로 계산한 94종 종합 점수표입니다. <span class="played-dot"></span>표시가 플레이한 게임입니다.</p>
 
   <div class="toolbar">
     <div class="views" role="tablist" aria-label="순위표 선택">
       <button type="button" role="tab" id="view-g" aria-selected="true" data-view="g">10/29 구글</button>
       <button type="button" role="tab" id="view-i" aria-selected="false" data-view="i">10/29 iOS</button>
+      <button type="button" role="tab" id="view-g2" aria-selected="false" data-view="g2">11/26 구글</button>
+      <button type="button" role="tab" id="view-i2" aria-selected="false" data-view="i2">11/26 iOS</button>
       <button type="button" role="tab" id="view-s" aria-selected="false" data-view="s">종합 점수 94종</button>
     </div>
     <label class="only" for="only-played"><input type="checkbox" id="only-played" />플레이한 게임만</label>
@@ -212,6 +214,7 @@
         <tr><td>스토어 일관성 · 20%</td><td>100 − 4g. g는 같은 날 구글 · iOS 순위 차이의 평균</td></tr>
         <tr><td>시장 노출도</td><td>94종 종합 점수 합에서 플레이한 게임이 차지하는 몫. 매출 점유율이 아니라 상위 노출의 근사치</td></tr>
         <tr><td>데이터 정제</td><td>표기 변형 병합, 동명 앱 중복 제거, 스크린샷 오독 재확인, 순위 깊이를 TOP46으로 통일</td></tr>
+        <tr><td>출시일 확인</td><td>순위표에 처음 보인 게임이 곧 신작은 아닙니다. 기사로 출시일을 확인해 신작(제우스 8/26 · 이클립스 9/10 · 도깨비의세계 10/8 등)과 기존 게임의 재진입(카오스 제로 나이트메어 2025-10 출시 · SD건담 지 제네레이션 이터널 2025년 출시 등)을 나눴습니다.</td></tr>
         <tr><td>한계</td><td>매출 순위라 재미 · 이용자 수와 다릅니다. 상위 10위권은 예측되지만 상위 5위 순서와 갑자기 뜰 신작은 예측하지 못합니다. 장르 · 국적은 직접 분류했고 일부는 추정입니다.</td></tr>
         <tr><td>도구</td><td>PowerShell + C# (몬테카를로 10,000회, 부트스트랩 5,000회). 분석 코드와 문서 작성에 AI(Claude)를 활용했습니다.</td></tr>
       </tbody>
@@ -244,8 +247,8 @@
     "쿠키런 키우기": "9/3 iOS 8위에서 10/29 구글 34위 · iOS 47위로 크게 하락했습니다.",
     "명조": "10/1 App Store 1위 → 10/29 순위권 밖. 이벤트형 급등의 대표 사례입니다.",
     "포켓몬 GO": "9/3 iOS 14위에서 하락. 10/29 구글은 순위권 밖, iOS 24위입니다.",
-    "카오스 제로 나이트메어": "10/29에 처음 등장한 신작입니다 (구글 21위 · iOS 41위).",
-    "하스스톤": "10/29 구글 46위로 처음 관측된 오래된 글로벌 IP입니다."
+    "카오스 제로 나이트메어": "2025년 10월 출시작. 순위권 밖에 있다가 1주년 시기인 10/29에 다시 들어왔고(구글 21위 · iOS 41위), 11/26에는 iOS 88위로 내려갔습니다.",
+    "하스스톤": "2014년부터 서비스 중인 글로벌 IP. 10/29 구글 46위로 잠깐 순위권에 들어왔다가 11/26에는 다시 밖입니다."
   };
   var PAIRS = [["WOS", "킹샷", "같은 회사 4X"], ["메이플 키우기", "쿠키런 키우기", "방치형 IP"], ["명조", "카오스 제로 나이트메어", "서브컬처"]];
   var OUT = 47;
@@ -258,6 +261,13 @@
   var rk = function (v) { return v ? v : "–"; };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var $ = function (id) { return document.getElementById(id); };
+
+  // 11/26 확인용 순위 (분석 점수에는 넣지 않음). 47위까지만, 밖은 0
+  var r1126 = {};
+  [["g1126", 0], ["i1126", 1]].forEach(function (p) {
+    (D[p[0]] || []).forEach(function (e) { if (e.c) { (r1126[e.c] = r1126[e.c] || [0, 0])[p[1]] = e.rk; } });
+  });
+  var at1126 = function (n, k) { return (r1126[n] || [0, 0])[k]; };
 
   var played = PLAYED.map(function (n) { return byName[n]; }).filter(Boolean);
   var playedRaw = played.reduce(function (a, g) { return a + g.raw; }, 0);
@@ -306,7 +316,8 @@
     var stage = g.st ? '<span class="stage on">추천 ' + g.st + '단계</span>' : '<span class="stage">추천 외</span>';
     return '<article class="play"><div class="play-head"><h3>' + esc(g.n) + '</h3>' + stage + '</div>' +
       '<span class="genre">' + esc(g.ge) + ' · ' + esc(g.pu) + '</span>' +
-      '<div class="ranks"><span>종합 <b>#' + g.idx + '</b>/94</span><span>10/29 구글 <b>' + rk(g.r[6]) + '</b> · iOS <b>' + rk(g.r[7]) + '</b></span></div>' +
+      '<div class="ranks"><span>종합 <b>#' + g.idx + '</b>/94</span><span>10/29 구글 <b>' + rk(g.r[6]) + '</b> · iOS <b>' + rk(g.r[7]) + '</b></span>' +
+      '<span>11/26 구글 <b>' + rk(at1126(g.n, 0)) + '</b> · iOS <b>' + rk(at1126(g.n, 1)) + '</b></span></div>' +
       spark(g) +
       '<div class="spark-key"><span><i style="background:var(--amber)"></i>구글</span><span><i style="background:var(--muted)"></i>iOS</span><span>9/3 → 10/29</span></div>' +
       '<p>' + esc(NOTES[g.n] || "") + '</p></article>';
@@ -328,7 +339,7 @@
   var view = "g";
   var onlyEl = $("only-played");
   function delta(cur, prev) {
-    if (!prev) return '<span class="up">신규</span>';
+    if (!prev) return '<span class="up">신규 진입</span>';
     var d = prev - cur;
     return d > 0 ? '<span class="up">▲' + d + '</span>' : d < 0 ? '<span class="down">▼' + (-d) + '</span>' : '<span class="down">–</span>';
   }
@@ -344,8 +355,11 @@
         }).join("") + '</tbody></table>';
       note = "점수 = 0.6 × 시장 지위 + 0.2 × 안정성 + 0.2 × 스토어 일관성. ‡ = 관측 4회 미만(참고용). ‘–’ = 해당 표 TOP46 밖.";
     } else {
-      var list = view === "g" ? D.g1029 : D.i1029, col = view === "g" ? 4 : 5;
-      html = '<table><thead><tr><th>순위</th><th>게임</th><th>배급사</th><th>장르</th><th class="r">10/1 대비</th></tr></thead><tbody>' +
+      // [원표, 비교할 이전 시점의 순위 열, 표 이름, 비교 시점]
+      var V = { g: [D.g1029, 4, "10/29 구글 플레이", "10/1"], i: [D.i1029, 5, "10/29 App Store", "10/1"],
+                g2: [D.g1126, 6, "11/26 구글 플레이", "10/29"], i2: [D.i1126, 7, "11/26 App Store", "10/29"] }[view];
+      var list = V[0], col = V[1];
+      html = '<table><thead><tr><th>순위</th><th>게임</th><th>배급사</th><th>장르</th><th class="r">' + V[3] + ' 대비</th></tr></thead><tbody>' +
         list.filter(function (e) { return !only || (mine(e.c) && !e.dup); }).map(function (e) {
           var g = byName[e.c], m = mine(e.c) && !e.dup;
           var d = e.dup ? '<span class="down">중복 표기</span>' : g ? delta(e.rk, g.r[col]) : "";
@@ -353,7 +367,8 @@
             '<td>' + esc(e.pub) + '</td><td>' + (g ? esc(g.ge) : "") + '</td><td class="r">' + d + '</td></tr>';
         }).join("") + '</tbody></table>';
       var n = list.filter(function (e) { return mine(e.c) && !e.dup; }).length;
-      note = "10/29 " + (view === "g" ? "구글 플레이" : "App Store") + " 1~47위 중 플레이한 게임 " + n + "종. 10/1 대비는 같은 스토어 기준이고, 이전 시점과 맞추기 위해 분석에는 46위까지만 썼습니다.";
+      note = V[2] + " 1~47위 중 플레이한 게임 " + n + "종. " + V[3] + " 대비는 같은 스토어 기준이며, ‘신규 진입’은 그 시점 순위권에 없었다는 뜻이지 신작이라는 뜻이 아닙니다." +
+        (view === "g" || view === "i" ? " 이전 시점과 맞추기 위해 분석에는 46위까지만 썼습니다." : " 11/26 순위는 확인용이라 분석 점수에는 넣지 않았습니다.");
     }
     $("rank-box").innerHTML = html;
     $("rank-box").setAttribute("aria-labelledby", "view-" + view);
